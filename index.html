@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>zjlhhh123's notes</title>
+	</head>
+	<body bgcolor="#008080">
+		<meta charset="utf-8"> 
+		<h1>页面介绍</h1>
+		这是自留地,方便我手机也能访问一些电脑上的资源.<br>
+		因为不懂css,所以样式很丑.<br>
+		<h2>音乐</h2>
+		<!--Man in The Mirror
+		<audio controls="controls" loop="loop">
+			<source src="https://other-web-rc01-sycdn.kuwo.cn/bae5fa80162c326db2b09d97a7ea036c/63cbdba2/resource/n1/90/58/3893647261.mp3" type="audio/mpeg">
+			It fails to load the music successfully.
+		</audio>-->
+		<iframe border="0" marginwidth="0" marginheight="0" src="//music.163.com/outchain/player?type=2&amp;id=1697604&amp;auto=0&amp;height=66" width="330" height="86" frameborder="no"></iframe><br>
+		<!--蓝天之约
+		<audio controls="controls" loop="loop">
+			<source src="https://other-web-nf01-sycdn.kuwo.cn/3561afa90a66e7e6f86971e151a2155e/63cbdbe8/resource/n2/8/42/3358596692.mp3" type="audio/mpeg">
+			It fails to load the music successfully.
+		</audio>-->
+		<iframe border="0" marginwidth="0" marginheight="0" src="//music.163.com/outchain/player?type=2&amp;id=28732340&amp;auto=0&amp;height=66" width="330" height="86" frameborder="no"></iframe><br>
+		<h2>电子书</h2>
+		<a href="EBook/Der Prozess.txt">审判Der Prozess</a><br>
+		<a href="EBook/FlowerAndMoonTrace.txt">花月痕Flower and Moon Trace</a><br>
+		<a href="EBook/FoldingBeijing.txt">北京折叠Folding Beijing</a><br>
+		<a href="EBook/La servitude volontaire.html">论自愿为奴La servitude volontaire</a><br>
+		<a href="EBook/QuestionsAndAnswersOnBuddhistKnowledge.txt">佛教常识问答Questions and Answers on Buddhist Knowledge</a><br>
+		<a href="EBook/SelectedStoriesOfOHenry.txt">欧·亨利短篇小说集Selected Stories of O.Henry</a><br>
+		<a href="EBook/TheSilenceCity.txt">寂静之城The Silence City</a><br>
+		<a href="EBook/ThePoetryOfMartialArtsMadness.txt">武道狂之诗The Poetry of Martial Arts Madness</a><br>
+		<h2>小工具</h2>
+		<a href="Tool/hardware.html">硬件工具</a><br>
+		<a href="Tool/crypto.html">密码学工具</a><br>
+		<h2>小游戏</h2>
+		<h3>PPAP</h3>
+		<p><!--ppap-->
+			<b>i have a(n) </b><input type="text" id="pen" placeholder="pen"><br>
+			<b>i have a(n) </b><input type="text" id="apple" placeholder="apple"><br>
+			<input type="button" id="ah" value="ah" onclick="ppap()"><input type="text" id="applepen" readonly="true">
+		</p>
+		<h3>nim</h3>
+		The Nim Game is a combinatorial game that involves a number of piles of stones and two players playing the game. In each turn, one player executes exactly one of following options:<br>
+		1. choose a pile and remove a non-zero number of stones from it;<br>
+		2. choose all piles and remove a non-zero number of stones from the them;<br>
+		The person who cannot make a move loses in the end.<br>
+		You are the second to move, but you can determine the the number of piles and number of stones in each pile before the game starts.
+		<p>
+			<div id="nim"></div>
+			<div>
+			<input type="button" id="addpile" value="+" onclick="addpile()"><input type="button" id="nimstart" value="start" onclick="nimstart()">
+			</div>
+		</p>
+	</body>	
+</html>
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script type="text/javascript" language="javascript">
+var nimgoingon=false;
+var pilenum=0;
+let SG;
+function testmodify(){
+	if(nimgoingon){
+		alert("how dare you cheat?");
+		return ;
+	}
+}
+function addpile(){
+	if(nimgoingon){
+		alert("how dare you cheat?");
+		return ;
+	}
+	if(pilenum>0)
+		$('#delpile').remove();
+	var pileid='pile'+pilenum;
+	var div=$('<div id="'+pileid+'"></div>');
+	var stonenum=$('<input type="text" id="stoneofpile'+pilenum+'" value="0" placeholder="'+pilenum+'" onfocus="testmodify()">');
+	var delbtn=$('<input type="button" id="delpile" value="-" onclick="delpile()">');
+	div.append('pile '+pilenum);
+	div.append(stonenum);
+	div.append(delbtn);
+	$('#nim').append(div);
+	pilenum++;
+	$(window).scrollTop($(window).scrollTop()+$('#addpile').parent().height());
+	return ;
+}
+function delpile(){
+	if(nimgoingon){
+		alert("how dare you cheat?");
+		return ;
+	}
+	pilenum--;
+	$(window).scrollTop($(window).scrollTop()-$('#delpile').parent().height());
+	$('#pile'+pilenum).remove();
+	if(pilenum>0)
+		$('#pile'+(pilenum-1)).append($('<input type="button" id="delpile" value="-" onclick="delpile()">'));
+	return ;
+}
+function recoverstart(){
+	for(let i=0;i<pilenum;i++)
+		$('#pile'+i).children('input').attr('readonly',false);
+	$('#choice').parent('div').append($('<input type="button" id="nimstart" value="start" onclick="nimstart()">'))
+	$('#choice').remove();
+	nimgoingon=false;
+	return ;
+}
+function firsttomove(){
+	SG=0;
+	var sum=0,arr=new Array;
+	for(let i=0;i<pilenum;i++){
+		x=parseInt($('#stoneofpile'+i)[0].value.replace(/[^0-9]/g,"")||"0");
+		arr.push(x);
+		sum+=x;
+		SG^=x;
+	}
+	//console.log(arr);
+	if(sum==0){
+		alert("you win!");
+		recoverstart();
+		return ;
+	}
+	if(SG){
+		for(let i=0;i<pilenum;i++)
+			if((arr[i]^SG)<arr[i]){
+				msg="robot: take "+(arr[i]-(arr[i]^SG))+" stone(s) out of pile"+i+".";
+				alert(msg);
+				arr[i]=(arr[i]^SG)
+				$('#stoneofpile'+i)[0].value=arr[i];
+				break;
+			}
+	}
+	else{
+		for(let i=0;i<pilenum;i++)
+			if(arr[i]>0){
+				msg="robot: take 1 stone(s) out of pile"+i+".";
+				alert(msg);
+				arr[i]--;
+				$('#stoneofpile'+i)[0].value=arr[i];
+				break;
+			}
+	}
+	sum=0;
+	for(let i=0;i<pilenum;i++)
+		sum+=arr[i];
+	if(sum==0){
+		alert("you lose!");
+		recoverstart();
+		return ;
+	}
+	return ;
+}
+function secondtomove(){
+	stonenum=$('#stonenum')[0].value;
+	pileindex=$('#pileindex')[0].value;
+	if(stonenum==""||pileindex==""){
+		alert("something is empty");
+		return ;
+	}
+	stonenum=parseInt(stonenum.replace(/[^0-9]/g,""));
+	if(isNaN(stonenum)){
+		alert("something wrong with the number of stones");
+		return ;
+	}
+	pileindex=parseInt(pileindex.replace(/[^0-9\*]/g,""));
+	if(isNaN(pileindex)){//all	
+		var arr=new Array();
+		for(let i=0;i<pilenum;i++){
+			arr.push(parseInt($('#stoneofpile'+i)[0].value.replace(/[^0-9]/g,"")||"0"));
+			if(stonenum>arr[i]){
+				alert("something wrong with the number of stones");
+				return ;
+			}
+			else
+				arr[i]-=stonenum;
+		}
+		for(let i=0;i<pilenum;i++)
+			$('#stoneofpile'+i)[0].value=arr[i];
+	}
+	else if(pileindex<pilenum){
+		var x=parseInt($('#stoneofpile'+pileindex)[0].value.replace(/[^0-9]/g,"")||"0");
+		if(stonenum>x){
+			alert("something wrong with the number of stones");
+			return ;
+		}
+		$('#stoneofpile'+pileindex)[0].value=x-stonenum;
+	}
+	else{
+		alert("something wrong with the index of the pile");
+		return ;
+	}
+	firsttomove();
+	return ;
+}
+function nimstart(){
+	nimgoingon=true;
+	for(let i=0;i<pilenum;i++){
+		SG^=parseInt($('#stoneofpile'+i)[0].value.replace(/[^0-9]/g,"")||"0");
+		$('#pile'+i).children('input').attr('readonly','true');
+	}
+	$('#nimstart').parent('div').append($('<div id="choice">I am going to take <input type="text" id="stonenum" style="width:60px;" placeholder="number"> from pile <input type="text" id="pileindex" style="width:80px;" placeholder="number or *"><input type="button" id="takestone" value="yeap!" onclick="secondtomove()"></div>'))
+	$('#nimstart').remove();
+	firsttomove();
+	return ;
+}
+function ppap(){
+	var pen=document.getElementById("pen").value;
+	var apple=document.getElementById("apple").value;
+	document.getElementById("applepen").value=apple+" "+pen;
+	return ;
+}
+</script>

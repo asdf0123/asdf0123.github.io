@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>zjlhhh123's notes</title>
+	</head>
+	<body bgcolor="#008080">
+		<meta charset="utf-8">
+		<h3>str&#8596;hex&#8596;arr</h3>
+		<p>
+			<tt><b>str:</b></tt><input type="text" style="font-family:monospace;width:660px;background-color:white" id="strstr" placeholder="&quot;123&quot;( if a control character appears, the background will become red)">
+			<input type="button" style="width:100px;" id="clearstrstr" value="clear" onclick="clearstrstr()">
+			<input type="button" style="width:100px;" id="str2hex" value="str&#8594;hex" onclick="strstr2hexstr()">
+			<input type="button" style="width:100px;" id="str2arr" value="str&#8594;arr" onclick="strstr2arrstr()">
+			<br>
+
+			<tt><b>hex:</b></tt><input type="text" style="font-family:monospace;width:660px;background-color:white" id="hexstr" placeholder="31 32 33">
+			<input type="button" style="width:100px;" id="hex2str" value="hex&#8594;str" onclick="hexstr2strstr()">
+			<input type="button" style="width:100px;" id="clearhexstr" value="clear" onclick="clearhexstr()">
+			<input type="button" style="width:100px;" id="hex2arr" value="hex&#8594;arr" onclick="hexstr2arrstr()">
+			<br>
+
+			<tt><b>arr:</b></tt><input type="text" style="font-family:monospace;width:660px;background-color:white" id="arrstr" placeholder="[49, 50, 51]">
+			<input type="button" style="width:100px;" id="arr2str" value="arr&#8594;str" onclick="arrstr2strstr()">
+			<input type="button" style="width:100px;" id="arr2hex" value="arr&#8594;hex" onclick="arrstr2hexstr()">
+			<input type="button" style="width:100px;" id="cleararrstr" value="clear" onclick="cleararrstr()">
+			<br>
+		</p>
+		<h3>base64</h3>
+		<p><!--base64-->
+			<input type="text" id="b4base64encode" placeholder="31 32 33"><input type="button" id="clearb4base64encode" value="clear" onclick="clearb4base64encode()"><br>
+			<input type="button" id="b64encode" value="b64encode&#8595;" onclick="b64encode()"><input type="button" id="b64decode" value="&#8593;b64decode" onclick="b64decode()"><br>
+			<input type="text" id="b4base64decode" placeholder="MTIz"><input type="button" id="clearb4base64decode" value="clear" onclick="clearb4base64decode()">
+		</p>
+		<h3>md5</h3>
+		<p>
+			<input type="text" id="b4md5" placeholder="31 32 33"><br>
+			<input type="radio" name="md5bit" id="16bitmd5" value="16"><label for="16bitmd5">16bit</label><br>
+			<input type="radio" name="md5bit" id="32bitmd5" value="32" checked="checked"><label for="32bitmd5">32bit</label><br>
+			<input type="button" id="md5" value="md5" onclick="md5hex()">
+			<input type="text" style="font-family:monospace;width:500px;" id="md5hexdigest" placeholder="202cb962ac59075b964b07152d234b70">
+		</p>
+		<a href="../index.html">back</a>
+	</body>
+</html>
+<script type="text/javascript" language="javascript" src="../js/io.js"></script>
+<script type="text/javascript" language="javascript" src="../js/md5.js"></script>
+<script type="text/javascript" language="javascript" src="../js/base64.js"></script>
+<script type="text/javascript" language="javascript">
+function clearstrstr(){
+	document.getElementById("strstr").value="\"\"";
+	document.getElementById("strstr").style.backgroundColor="white";
+	return ;
+}
+function strstr2hexstr(){
+	document.getElementById("hexstr").value=arr2hex(str2arr(parseString(document.getElementById("strstr").value)));
+	return ;
+}
+function strstr2arrstr(){
+	document.getElementById("arrstr").value="["+str2arr(parseString(document.getElementById("strstr").value)).toString()+"]";
+	return ;
+}
+function hexstr2strstr(){
+	strstr=arr2str(hex2arr(document.getElementById("hexstr").value));
+	document.getElementById("strstr").value="\""+strstr[0]+"\"";
+	document.getElementById("strstr").style.backgroundColor=strstr[1]?"red":"white";
+	return ;
+}
+function clearhexstr(){
+	document.getElementById("hexstr").value="";
+	return ;
+}
+function hexstr2arrstr(){
+	document.getElementById("arrstr").value="["+hex2arr(document.getElementById("hexstr").value).toString()+"]";
+	return ;
+}
+function arrstr2strstr(){
+	strstr=arr2str(parseArray(document.getElementById("arrstr").value));
+	document.getElementById("strstr").value="\""+strstr[0]+"\"";
+	document.getElementById("strstr").style.backgroundColor=strstr[1]?"red":"white";
+	return ;
+}
+function arrstr2hexstr(){
+	document.getElementById("hexstr").value=arr2hex(parseArray(document.getElementById("arrstr").value));
+	return ;
+}
+function cleararrstr(){
+	document.getElementById("arrstr").value="[]";
+	return ;
+}
+function clearb4base64encode(){
+	document.getElementById("b4base64encode").value="";
+	return ;
+}
+function clearb4base64decode(){
+	document.getElementById("b4base64decode").value="";
+	return ;
+}
+function b64decode(){
+	document.getElementById("b4base64encode").value=arr2hex(new base64().b64decode(document.getElementById("b4base64decode").value));
+	return ;
+}
+function b64encode(){
+	document.getElementById("b4base64decode").value=new base64().b64encode(hex2arr(document.getElementById("b4base64encode").value));
+	return ;
+}
+function md5hex(){
+	arr=hex2arr(document.getElementById("b4md5").value);
+	md5option=document.getElementsByName("md5bit");
+	let md5bit;
+	for(let i in md5option)
+		if(md5option[i].checked)
+			md5bit=parseInt(md5option[i].value)
+	ret=arr.MD5(md5bit);
+	document.getElementById("md5hexdigest").value=ret;
+	return ;
+}
+</script>
