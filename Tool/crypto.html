@@ -7,45 +7,88 @@
 		<meta charset="utf-8">
 		<h3>str&#8596;hex&#8596;arr</h3>
 		<p>
-			<tt><b>str:</b></tt><input type="text" style="font-family:monospace;width:660px;background-color:white" id="strstr" placeholder="&quot;123&quot;( if a control character appears, the background will become red)">
-			<input type="button" style="width:100px;" id="clearstrstr" value="clear" onclick="clearstrstr()">
-			<input type="button" style="width:100px;" id="str2hex" value="str&#8594;hex" onclick="strstr2hexstr()">
-			<input type="button" style="width:100px;" id="str2arr" value="str&#8594;arr" onclick="strstr2arrstr()">
+			<tt><b>str:</b></tt><input type="text" style="font-family:monospace;width:660px;background-color:white" id="strstr" placeholder="&quot;123&quot;( if a control character appears, the background will become red);">
+			<input type="button" style="width:100px;" id="clearstrstr" value="clear" onclick="clearstrstr();">
+			<input type="button" style="width:100px;" id="str2hex" value="str&#8594;hex" onclick="strstr2hexstr();">
+			<input type="button" style="width:100px;" id="str2arr" value="str&#8594;arr" onclick="strstr2arrstr();">
 			<br>
 
 			<tt><b>hex:</b></tt><input type="text" style="font-family:monospace;width:660px;background-color:white" id="hexstr" placeholder="31 32 33">
-			<input type="button" style="width:100px;" id="hex2str" value="hex&#8594;str" onclick="hexstr2strstr()">
-			<input type="button" style="width:100px;" id="clearhexstr" value="clear" onclick="clearhexstr()">
-			<input type="button" style="width:100px;" id="hex2arr" value="hex&#8594;arr" onclick="hexstr2arrstr()">
+			<input type="button" style="width:100px;" id="hex2str" value="hex&#8594;str" onclick="hexstr2strstr();">
+			<input type="button" style="width:100px;" id="clearhexstr" value="clear" onclick="reset('hexstr');">
+			<input type="button" style="width:100px;" id="hex2arr" value="hex&#8594;arr" onclick="hexstr2arrstr();">
 			<br>
 
 			<tt><b>arr:</b></tt><input type="text" style="font-family:monospace;width:660px;background-color:white" id="arrstr" placeholder="[49, 50, 51]">
-			<input type="button" style="width:100px;" id="arr2str" value="arr&#8594;str" onclick="arrstr2strstr()">
-			<input type="button" style="width:100px;" id="arr2hex" value="arr&#8594;hex" onclick="arrstr2hexstr()">
-			<input type="button" style="width:100px;" id="cleararrstr" value="clear" onclick="cleararrstr()">
+			<input type="button" style="width:100px;" id="arr2str" value="arr&#8594;str" onclick="arrstr2strstr();">
+			<input type="button" style="width:100px;" id="arr2hex" value="arr&#8594;hex" onclick="arrstr2hexstr();">
+			<input type="button" style="width:100px;" id="cleararrstr" value="clear" onclick="reset('arrstr','[]');">
 			<br>
 		</p>
 		<h3>base64</h3>
 		<p><!--base64-->
-			<input type="text" id="b4base64encode" placeholder="31 32 33"><input type="button" id="clearb4base64encode" value="clear" onclick="clearb4base64encode()"><br>
-			<input type="button" id="b64encode" value="b64encode&#8595;" onclick="b64encode()"><input type="button" id="b64decode" value="&#8593;b64decode" onclick="b64decode()"><br>
-			<input type="text" id="b4base64decode" placeholder="MTIz"><input type="button" id="clearb4base64decode" value="clear" onclick="clearb4base64decode()">
+			<input type="text" id="b4base64encode" placeholder="31 32 33"><input type="button" id="clearb4base64encode" value="clear" onclick="reset('b4base64encode');"><br>
+			<input type="button" id="b64encode" value="b64encode&#8595;" onclick="b64encode();"><input type="button" id="b64decode" value="&#8593;b64decode" onclick="b64decode();"><br>
+			<input type="text" id="b4base64decode" placeholder="MTIz"><input type="button" id="clearb4base64decode" value="clear" onclick="reset('b4base64decode');">
+		</p>
+		<h3>endian transfer</h3>
+		<p>
+			<input type="text" id="bigendiandata" placeholder="01234567 89abcdef">word size <select id="bigwordsize"><option value="1">1</option><option value="2">2</option><option value="4" select>4</option></select>byte(s)<input type="button" id="clearbigendian" value="clear context" onclick="reset('bigendiandata');"><br>
+			<input type="button" id="big2little" value="big&#8594;little" onclick="big2little();"><input type="button" id="little2big" value="little&#8594;big" onclick="little2big();"><br>
+			<input type="text" id="littleendiandata" placeholder="67 45 23 01 ef cd ab 89">word size <select id="littlewordsize"><option value="1" select>1</option><option value="2">2</option><option value="4">4</option></select>byte(s)<input type="button" id="clearlittleendian" value="clear context" onclick="reset('littleendiandata');">
+		</p>
+		<h3>text xor</h3>
+		<p>
+			<input type="text" id="strsrc1" style="font-family:monospace;width:660px;background-color:white" placeholder="loremipsumdolorsit" oninput="$('#xorsrc1')[0].value=arr2hex(str2arr(parseString($('#strsrc1')[0].value)));src2dest();"><br>
+			<input type="text" id="strsrc2" style="font-family:monospace;width:660px;background-color:white" placeholder="" oninput="$('#xorsrc2')[0].value=arr2hex(str2arr(parseString($('#strsrc2')[0].value)));src2dest();"><br>
+			<input type="text" id="xorsrc1" style="font-family:monospace;width:660px;background-color:white" placeholder="6c 6f 72 65 6d 69 70 73 75 6d 64 6f 6c 6f 72 73 69 74" oninput="src2dest();"><br>
+			<input type="text" id="xorsrc2" style="font-family:monospace;width:660px;background-color:white" placeholder="18 07 17 14 18 00 13 18 17 1f 0b 18 02 09 1d 0b" oninput="src2dest();"><br>
+			&oplus;<br>
+			<input type="text" id="xordest" style="font-family:monospace;width:660px;background-color:white" placeholder="74 68 65 71 75 69 63 6b 62 72 6f 77 6e 66 6f 78" oninput="xordest2strdest();"><br>
+			<input type="text" id="strdest" style="font-family:monospace;width:660px;background-color:white" placeholder="thequickbrownfox"> length <span id="strdestlen">0</span>
 		</p>
 		<h3>md5</h3>
 		<p>
 			<input type="text" id="b4md5" placeholder="31 32 33"><br>
 			<input type="radio" name="md5bit" id="16bitmd5" value="16"><label for="16bitmd5">16bit</label><br>
-			<input type="radio" name="md5bit" id="32bitmd5" value="32" checked="checked"><label for="32bitmd5">32bit</label><br>
-			<input type="button" id="md5" value="md5" onclick="md5hex()">
+			<input type="radio" name="md5bit" id="32bitmd5" value="32" checked><label for="32bitmd5">32bit</label><br>
+			<input type="button" id="md5" value="md5" onclick="md5hex();">
 			<input type="text" style="font-family:monospace;width:500px;" id="md5hexdigest" placeholder="202cb962ac59075b964b07152d234b70">
 		</p>
+		<a href="https://the-x.cn/cryptography" target="_blank">常见现代密码学算法全家桶</a>
+		<a href="https://www.somd5.com" target="_blank">倒算md5</a>
 		<a href="../index.html">back</a>
 	</body>
 </html>
 <script type="text/javascript" language="javascript" src="../js/io.js"></script>
 <script type="text/javascript" language="javascript" src="../js/md5.js"></script>
 <script type="text/javascript" language="javascript" src="../js/base64.js"></script>
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script>
+function xordest2strdest(){
+	strdest=arr2str(hex2arr($("#xordest")[0].value));
+	$("#strdest")[0].value=strdest[0];
+	$("#strdest")[0].style.backgroundColor=strdest[1]?"red":"white";
+	$('#strdestlen').text(strdest[0].length);
+	return ;
+}
+function src2dest(){
+	arr1=hex2arr($("#xorsrc1")[0].value);
+	arr2=hex2arr($("#xorsrc2")[0].value);
+	dest=new Array();
+	var k=Math.min(arr1.length,arr2.length);
+	for(i=0;i<k;i++)
+		dest.push(arr1[i]^arr2[i]);
+	$("#xordest")[0].value=arr2hex(dest);
+	xordest2strdest();
+	return ;
+}
+</script>
 <script type="text/javascript" language="javascript">
+function reset(id,ctx=""){
+	document.getElementById(id).value=ctx;
+	return ;
+}
 function clearstrstr(){
 	document.getElementById("strstr").value="\"\"";
 	document.getElementById("strstr").style.backgroundColor="white";
@@ -65,10 +108,6 @@ function hexstr2strstr(){
 	document.getElementById("strstr").style.backgroundColor=strstr[1]?"red":"white";
 	return ;
 }
-function clearhexstr(){
-	document.getElementById("hexstr").value="";
-	return ;
-}
 function hexstr2arrstr(){
 	document.getElementById("arrstr").value="["+hex2arr(document.getElementById("hexstr").value).toString()+"]";
 	return ;
@@ -83,24 +122,52 @@ function arrstr2hexstr(){
 	document.getElementById("hexstr").value=arr2hex(parseArray(document.getElementById("arrstr").value));
 	return ;
 }
-function cleararrstr(){
-	document.getElementById("arrstr").value="[]";
-	return ;
-}
-function clearb4base64encode(){
-	document.getElementById("b4base64encode").value="";
-	return ;
-}
-function clearb4base64decode(){
-	document.getElementById("b4base64decode").value="";
-	return ;
-}
 function b64decode(){
 	document.getElementById("b4base64encode").value=arr2hex(new base64().b64decode(document.getElementById("b4base64decode").value));
 	return ;
 }
 function b64encode(){
 	document.getElementById("b4base64decode").value=new base64().b64encode(hex2arr(document.getElementById("b4base64encode").value));
+	return ;
+}
+function big2little(){
+	bsz=parseInt(document.getElementById("bigwordsize").value);
+	lsz=parseInt(document.getElementById("littlewordsize").value);
+	barr=hex2arr(document.getElementById("bigendiandata").value,bsz*2);
+	larr=new Array();
+	let i,j,k;
+	if(bsz>lsz){
+		k=bsz/lsz;
+		for(i=0;i<barr.length;i++)
+			for(j=0;j<k;j++){
+				larr.push(barr[i]&((1<<(lsz<<3))-1));
+				barr[i]>>=(lsz<<3);
+			}
+	}
+	else if(bsz<=lsz){
+		k=lsz/bsz;
+		for(i=0;i*k<barr.length;i++){
+			var sum=0;
+			for(j=0;j<k&&i*k+j<barr.length;j++)
+				sum=(sum<<(bsz<<3))|barr[i*k+j];
+			larr.push(sum);
+		}
+	}
+	document.getElementById("littleendiandata").value=arr2hex(larr,lsz*2);
+	return ;
+}
+function little2big(){
+	bsz=parseInt(document.getElementById("bigwordsize").value);
+	larr=hex2arr(document.getElementById("littleendiandata").value,2);
+	let i,j,sum;
+	barr=new Array();
+	for(i=0;i*bsz<larr.length;i++){
+		sum=0;
+		for(j=0;j<bsz&&i*bsz+j<larr.length;j++)
+			sum|=larr[i*bsz+j]<<(j<<3);
+		barr.push(sum);
+	}
+	document.getElementById("bigendiandata").value=arr2hex(barr,bsz*2);
 	return ;
 }
 function md5hex(){
