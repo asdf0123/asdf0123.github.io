@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>life countdown</title>
+	<!-- <meta name="referrer" content="no-referrer" /> -->
+	<link href="https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap" rel="stylesheet">
+
+	<style>
+		.hide {
+			/*display: none;*/
+			/* background-color: #dadada; */
+			background-color: #c2bebe;
+			width: fit-content;
+			padding: 22px;
+			border: 1px solid #868686;
+		}
+
+		.hide:hover {
+			display: block;
+		}
+
+		.myDIV:hover+.hide {
+			display: block;
+		}
+
+		.myDIV {
+			color: transparent;
+			float: left;
+		}
+
+		button:active {
+			transform: scale(0.9);
+		}
+	</style>
+
+	<style>
+		body {
+			background: rgb(218, 218, 218);
+			/* background: black; */
+		}
+
+		/* 黑色主题 */
+
+		.clock-1 {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translateX(-50%) translateY(-50%);
+			color: #17D4FE;
+			font-size: 60px;
+			font-family: monospace;
+			letter-spacing: 7px;
+		}
+
+		.clock-2 {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translateX(-50%) translateY(-50%);
+			color: #000000;
+			font-size: 60px;
+			font-family: monospace;
+			letter-spacing: 7px;
+			text-shadow: 0 0 10px #0000008a;
+		}
+
+		.clock-3 {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translateX(-50%) translateY(-50%);
+			color: #272727;
+			font-size: 60px;
+			font-family: monospace;
+			letter-spacing: 7px;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div id="hhmmss" class="clock-2" onload="showTime()">
+	</div>
+
+	<div class="myDIV">themes</div>
+	<div class="hide">
+		<button onclick="theme3()">雅灰</button>
+		<button onclick="theme2()">纸白</button> ||
+		<button onclick="theme1()">夜光</button>
+		<button onclick="theme4()">隐匿</button> ||
+		<button onclick="openFullscreen()">全屏</button>
+	</div>
+
+</body>
+
+</html>
+<script>
+	function showTime() {
+		var date = new Date();
+		var h = date.getHours(); // 0 - 23
+		var m = date.getMinutes(); // 0 - 59
+		var s = date.getSeconds(); // 0 - 59
+		var d = date.getDate();
+		var day = date.getDay();
+		var mon = date.getMonth();
+		var y = date.getMonth();
+		monthtable=[31,28,31,30,31,30,31,31,30,31,30,31];
+		if(y%4==0&&(y%100!=0||y%400==0))
+		monthtable[1]=29;
+		
+		h=24-1-h;
+		m=60-1-m;
+		s=60-1-s;
+		d=monthtable[mon]-1-d;
+		day=7-1-day;
+		mon=12-1-mon;
+		
+		h = (h < 10) ? "0" + h : h;
+		m = (m < 10) ? "0" + m : m;
+		s = (s < 10) ? "0" + s : s;
+		
+		var time = ("今天还剩" + h + "小时" + m + "分" + s + "秒")
+		+"\n"+("本周还剩"+day+"天")
+		+"\n"+("本月还剩"+d+"天")
+		+"\n"+("今年还剩"+mon+"个月");
+		document.getElementById("hhmmss").innerText = time;
+		setTimeout(showTime, 1000-date.getMilliseconds());
+	}
+	function theme1() {
+		document.getElementById("hhmmss").className = "clock-1";
+		document.body.style.backgroundColor = "#000";
+	}
+	function theme2() {
+		document.getElementById("hhmmss").className = "clock-2";
+		document.body.style.backgroundColor = "#fff";
+	}
+	function theme3() {
+		document.getElementById("hhmmss").className = "clock-2";
+		document.body.style.backgroundColor = "#dadada"
+	}
+	function theme4() {
+		document.getElementById("hhmmss").className = "clock-3";
+		document.body.style.backgroundColor = "#000"
+	}
+	var elem = document.documentElement;
+	function openFullscreen() {
+		if (elem.requestFullscreen) {
+			elem.requestFullscreen();
+		} else if (elem.mozRequestFullScreen) { /* Firefox */
+			elem.mozRequestFullScreen();
+		} else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+			elem.webkitRequestFullscreen();
+		} else if (elem.msRequestFullscreen) { /* IE/Edge */
+			elem.msRequestFullscreen();
+		}
+	}
+	showTime();
+</script>
