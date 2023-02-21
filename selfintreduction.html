@@ -2,14 +2,343 @@
 <html>
 	<head>
 		<title>zjlhhh123's notes</title>
+		<style type="text/css">
+			.tagbox {
+				position: relative;
+				margin: 20px auto 0px;
+				width: 500px;
+				height: 500px;
+				//background-image: url(https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=444462001,2967968230&fm=11&gp=0.jpg);
+			}
+			.tagbox a,.tagbox .img img{
+				position: absolute;
+				padding: 3px 6px;
+				font-family: Microsoft YaHei;
+				color: #fff;
+				TOP: 0px;
+				font-weight: bold;
+				text-decoration: none;
+				left: 0px
+			}
+			.tagbox a:hover{
+				border: #eee 1px solid;
+				background: #000;
+			}
+	
+			.tagbox .blue {
+				color: blue
+			}
+	
+			.tagbox .red {
+				color: red
+			}
+	
+			.tagbox .yellow {
+				color: yellow
+			}
+		</style>
 	</head>
 	<body bgcolor="#008080">
-		<meta charset="utf-8"> 
-		从阵营九宫格来看，我觉得我属于中立邪恶，大多数时候我能意识到应当怎么选，但我往往不这么选。我自认为是一个功利主义者、悲观主义、虚无主义者。在人生的意义上，我比较认同叔本华(也可能是我没接触到和我更契合的观念)，正在努力追求半满足的人生。<br>
-		我不信MBTI，我为我自己的垃圾情绪状态负责。<br>
-		喜欢的事物：睡、吃、上世纪知名歌手的成名曲、古老但好用的软件、dos游戏、flash小游戏、打牌、超市傍晚的打折熟食、有教育意义的动画片、挤(自己的)痘痘、囤积没用的东西、做手工、高深但是自己能解决的数学题、优雅、可爱的妹子、双关笑话、谐音笑话、苏联笑话、讽刺、黑色幽默、蹲在地上观察小动物、看小说、看令人伤感的古文、巧克力牛奶、泡芙、溜冰、破解、上网冲浪、过山车、旋转木马、功能机、名著、不劳而获、粤菜<br>
-		讨厌的事物：茄子、禽类的脚、灰尘、在线听歌、网络实名制、杏仁奶茶、别人给我夹菜、大葱、香烟、赶时间、无线耳机、说违心的话、百度<br>
-		想尝试但是没试过的事物：学厨师做菜、PC大作、和可爱的妹子贴贴、搭P2P服务器、泰拳、冲浪、整理收集的歌曲的歌词、整理收集的沙雕图并存档、FPV RC、VR、Nexys4上开发个小游戏。
-		<a href="index.html">back</a>
+		<meta charset="utf-8">
+		<img src="pic/Drake-no.jpg" height=450 style="float:left">
+		<div id="dislikebox" class="tagbox" style="float:left">
+			<a>茄子</a>
+			<a>芹菜</a>
+			<a>禽类的脚</a>
+			<a>灰尘</a>
+			<a>在线听歌</a>
+			<a>网络实名制</a>
+			<a>杏仁奶茶</a>
+			<a>别人给我夹菜</a>
+			<a>大葱</a>
+			<a>香烟</a>
+			<a>赶时间</a>
+			<a>无线耳机</a>
+			<a>说违心的话</a>
+			<a>百度</a>
+			<a>未来税</a>
+			<a>双重标准</a>
+		</div>
+		<div style="clear:both"></div>
+		<img src="pic/Drake-yes.jpg" height=450 style="float:left">
+		<div id="likebox" class="tagbox" style="float:left">
+			<a>睡</a>
+			<a>吃</a>
+			<a>上世纪知名歌手的成名曲</a>
+			<a>古老但好用的软件</a>
+			<a>dos游戏</a>
+			<a>flash小游戏</a>
+			<a>打牌</a>
+			<a>超市傍晚的打折熟食</a>
+			<a>有教育意义的动画片</a>
+			<a>挤(自己的)痘痘</a>
+			<a>囤积没用的东西</a>
+			<a>做手工</a>
+			<a>高深但是自己能解决的数学题</a>
+			<a>优雅</a>
+			<a>可爱的妹子</a>
+			<a>双关笑话</a>
+			<a>谐音笑话</a>
+			<a>苏联笑话</a>
+			<a>讽刺</a>
+			<a>黑色幽默</a>
+			<a>蹲在地上观察小动物</a>
+			<a>看小说</a>
+			<a>看令人伤感的古文</a>
+			<a>巧克力牛奶</a>
+			<a>泡芙</a>
+			<a>溜冰</a>
+			<a>破解</a>
+			<a>上网冲浪</a>
+			<a>过山车</a>
+			<a>旋转木马</a>
+			<a>功能机</a>
+			<a>名著</a>
+			<a>不劳而获</a>
+			<a>粤菜</a>
+			<a>听八卦</a>
+		</div>
+		<div style="clear:both"></div>
+		从阵营九宫格来看，我觉得我属于中立邪恶，大多数时候我能意识到应当怎么选，但我往往不这么选，因为爽。我自认为是一个功利主义者、悲观主义、虚无主义者。在人生的意义上，我比较认同叔本华(也可能是我没接触到和我更契合的观念)，正在努力追求半满足的人生。<br>
+		想尝试但是没试过的事物：学厨师做菜、PC大作、和可爱的妹子贴贴、搭P2P服务器、泰拳、冲浪、整理收集的歌曲的歌词、整理收集的沙雕图并存档、FPV RC、VR、Nexys4上开发个小游戏<br>
+		
 	</body>	
 </html>
+<script>
+var radius = 144;	//牵涉到半径
+var dtr = Math.PI/180;//旋转的快慢
+var d=250;			//字体缩放
+var tagboxname=["likebox","dislikebox"];
+var mcList = [[],[]];
+var active = [false,false];
+var lasta = [1,1];
+var lastb = [1,1];
+var distr = true;
+var tspeed=5;
+var size=250;
+
+var mouseX=[0,0];
+var mouseY=[0,0];
+
+var howElliptical=1;
+
+var aA=[null,null];
+var oDiv=[null,null];
+function tagcloud(tagboxid){
+	var i=0;
+	var oTag=null;
+	
+	oDiv[tagboxid]=document.getElementById(tagboxname[tagboxid]);
+	
+	aA[tagboxid]=oDiv[tagboxid].getElementsByTagName('a');
+	
+	for(i=0;i<aA[tagboxid].length;i++){
+		oTag={};
+		
+		oTag.offsetWidth=aA[tagboxid][i].offsetWidth;
+		oTag.offsetHeight=aA[tagboxid][i].offsetHeight;
+		
+		mcList[tagboxid].push(oTag);
+	}
+	
+	sineCosine( 0,0,0 );
+	
+	positionAll(tagboxid);
+	
+	oDiv[tagboxid].onmouseover=function ()
+	{
+		active[tagboxid]=true;
+	};
+	
+	oDiv[tagboxid].onmouseout=function ()
+	{
+		active[tagboxid]=false;
+	};
+	
+	oDiv[tagboxid].onmousemove=function (ev){
+		var oEvent=window.event || ev;
+		
+		mouseX[tagboxid]=oEvent.clientX-(oDiv[tagboxid].offsetLeft+oDiv[tagboxid].offsetWidth/2);
+		mouseY[tagboxid]=oEvent.clientY-(oDiv[tagboxid].offsetTop+oDiv[tagboxid].offsetHeight/2);
+		
+		mouseX[tagboxid]/=5;
+		mouseY[tagboxid]/=5;
+	};
+	
+}
+
+window.onload=function (){
+	tagcloud(0);
+	tagcloud(1);
+	setInterval(update, 30);
+};
+
+function update(){
+	var a;
+	var b;
+	
+	for(var i=0;i<mcList.length;i++){
+		if(active)
+		{
+			a = (-Math.min( Math.max( -mouseY[i], -size ), size ) / radius ) * tspeed;
+			b = (Math.min( Math.max( -mouseX[i], -size ), size ) / radius ) * tspeed;
+		}
+		else
+		{
+			a = lasta[i] * 0.98;
+			b = lastb[i] * 0.98;
+		}
+		
+		lasta[i]=a;
+		lastb[i]=b;
+		
+		if(Math.abs(a)<=0.01 && Math.abs(b)<=0.01)
+		{
+			return;
+		}
+		
+		var c=0;
+		sineCosine(a,b,c);
+		for(var j=0;j<mcList[i].length;j++){
+			var rx1=mcList[i][j].cx;
+			var ry1=mcList[i][j].cy*ca+mcList[i][j].cz*(-sa);
+			var rz1=mcList[i][j].cy*sa+mcList[i][j].cz*ca;
+			
+			var rx2=rx1*cb+rz1*sb;
+			var ry2=ry1;
+			var rz2=rx1*(-sb)+rz1*cb;
+			
+			var rx3=rx2*cc+ry2*(-sc);
+			var ry3=rx2*sc+ry2*cc;
+			var rz3=rz2;
+			
+			mcList[i][j].cx=rx3;
+			mcList[i][j].cy=ry3;
+			mcList[i][j].cz=rz3;
+			
+			per=d/(d+rz3);
+			
+			mcList[i][j].x=(howElliptical*rx3*per)-(howElliptical*2);
+			mcList[i][j].y=ry3*per;
+			mcList[i][j].scale=per;
+			mcList[i][j].alpha=per;
+			
+			mcList[i][j].alpha=(mcList[i][j].alpha-0.6)*(10/6);
+		}
+		doPosition(i);
+		depthSort(i);
+	}
+	
+}
+
+function depthSort(tagboxid){
+	let i,j;
+	i=tagboxid;
+	{
+		var aTmp=[];
+		
+		for(j=0;j<aA[i].length;j++)
+		{
+			aTmp.push(aA[i][j]);
+		}
+		
+		aTmp.sort
+		(
+			function (vItem1, vItem2)
+			{
+				if(vItem1.cz>vItem2.cz)
+				{
+					return -1;
+				}
+				else if(vItem1.cz<vItem2.cz)
+				{
+					return 1;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+		);
+		
+		for(j=0;j<aTmp.length;j++)
+		{
+			aTmp[j].style.zIndex=j;
+		}
+	}
+}
+
+function positionAll(tagboxid){
+	var phi=0;
+	var theta=0;
+	var i,j,max;
+	i=tagboxid;
+	{
+		var oFragment=document.createDocumentFragment();
+		var aTmp=[];
+		max=mcList[i].length;
+		for(j=0;j<aA[i].length;j++){
+			aTmp.push(aA[i][j]);
+		}
+		
+		aTmp.sort
+		(
+			function ()
+			{
+				return Math.random()<0.5?1:-1;
+			}
+		);
+		
+		for(j=0;j<aTmp.length;j++){
+			oFragment.appendChild(aTmp[j]);
+		}
+		
+		oDiv[i].appendChild(oFragment);
+		
+		for( j=1; j<max+1; j++){
+			if( distr ){
+				phi = Math.acos(-1+(2*j-1)/max);
+				theta = Math.sqrt(max*Math.PI)*phi;
+			}
+			else
+			{
+				phi = Math.random()*(Math.PI);
+				theta = Math.random()*(2*Math.PI);
+			}
+			mcList[i][j-1].cx = radius * Math.cos(theta)*Math.sin(phi);
+			mcList[i][j-1].cy = radius * Math.sin(theta)*Math.sin(phi);
+			mcList[i][j-1].cz = radius * Math.cos(phi);
+			
+			aA[i][j-1].style.left=mcList[i][j-1].cx+oDiv[i].offsetWidth/2-mcList[i][j-1].offsetWidth/2+'px';
+			aA[i][j-1].style.top=mcList[i][j-1].cy+oDiv[i].offsetHeight/2-mcList[i][j-1].offsetHeight/2+'px';
+		}
+	}
+}
+
+function doPosition(){
+	for(var i=0;i<mcList.length;i++){
+		var l=oDiv[i].offsetWidth/2;
+		var t=oDiv[i].offsetHeight/2;
+		for(var j=0;j<mcList[i].length;j++)
+		{
+			aA[i][j].style.left=mcList[i][j].cx+l-mcList[i][j].offsetWidth/2+'px';
+			aA[i][j].style.top=mcList[i][j].cy+t-mcList[i][j].offsetHeight/2+'px';
+			
+			aA[i][j].style.fontSize=Math.ceil(12*mcList[i][j].scale/2)+8+'px';
+			
+			aA[i][j].style.filter="alpha(opacity="+100*mcList[i][j].alpha+")";
+			aA[i][j].style.opacity=mcList[i][j].alpha;
+		}
+	}
+}
+
+function sineCosine( a, b, c){
+	sa = Math.sin(a * dtr);
+	ca = Math.cos(a * dtr);
+	sb = Math.sin(b * dtr);
+	cb = Math.cos(b * dtr);
+	sc = Math.sin(c * dtr);
+	cc = Math.cos(c * dtr);
+}
+</script>	
+
