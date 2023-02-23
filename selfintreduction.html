@@ -161,9 +161,6 @@ function tagcloud(tagboxid){
 		
 		mouseX[tagboxid]=oEvent.clientX-(oDiv[tagboxid].offsetLeft+oDiv[tagboxid].offsetWidth/2);
 		mouseY[tagboxid]=oEvent.clientY-(oDiv[tagboxid].offsetTop+oDiv[tagboxid].offsetHeight/2);
-		if(tagboxid==1){
-			console.log(oEvent.clientX,oEvent.clientY,oDiv[tagboxid].offsetLeft+oDiv[tagboxid].offsetWidth/2,oDiv[tagboxid].offsetTop+oDiv[tagboxid].offsetHeight/2);
-		}
 		mouseX[tagboxid]/=5;
 		mouseY[tagboxid]/=5;
 	};
