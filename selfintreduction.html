@@ -6,9 +6,8 @@
 			.tagbox {
 				position: relative;
 				margin: 20px auto 0px;
-				width: 500px;
-				height: 500px;
-				//background-image: url(https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=444462001,2967968230&fm=11&gp=0.jpg);
+				width: 360px;
+				height: 360px;
 			}
 			.tagbox a,.tagbox .img img{
 				position: absolute;
@@ -40,7 +39,7 @@
 	</head>
 	<body bgcolor="#008080">
 		<meta charset="utf-8">
-		<img src="pic/Drake-no.jpg" height=450 style="float:left">
+		<img src="pic/Drake-no.jpg" height=360 style="float:left">
 		<div id="dislikebox" class="tagbox" style="float:left">
 			<a>茄子</a>
 			<a>芹菜</a>
@@ -60,11 +59,12 @@
 			<a>双重标准</a>
 		</div>
 		<div style="clear:both"></div>
-		<img src="pic/Drake-yes.jpg" height=450 style="float:left">
+		<img src="pic/Drake-yes.jpg" height=360 style="float:left">
 		<div id="likebox" class="tagbox" style="float:left">
 			<a>睡</a>
 			<a>吃</a>
 			<a>上世纪知名歌手的成名曲</a>
+			<a>迈克尔·杰克逊</a>
 			<a>古老但好用的软件</a>
 			<a>dos游戏</a>
 			<a>flash小游戏</a>
@@ -100,16 +100,16 @@
 		</div>
 		<div style="clear:both"></div>
 		从阵营九宫格来看，我觉得我属于中立邪恶，大多数时候我能意识到应当怎么选，但我往往不这么选，因为爽。我自认为是一个功利主义者、悲观主义、虚无主义者。在人生的意义上，我比较认同叔本华(也可能是我没接触到和我更契合的观念)，正在努力追求半满足的人生。<br>
-		想尝试但是没试过的事物：学厨师做菜、PC大作、和可爱的妹子贴贴、搭P2P服务器、泰拳、冲浪、整理收集的歌曲的歌词、整理收集的沙雕图并存档、FPV RC、VR、Nexys4上开发个小游戏<br>
+		想尝试但是没试过的事物：学厨师做菜、PC大作、和可爱的妹子贴贴、搭NAS服务器P2P、泰拳、冲浪、整理收集的歌曲的歌词、整理收集的沙雕图并存档、FPV RC、VR、Nexys4上开发个小游戏、开锁<br>
 		
 		<a href="index.html">back</a>
 	</body>	
 </html>
 <script>
-var radius = 144;	//牵涉到半径
+var radius = 126;	//牵涉到半径
 var dtr = Math.PI/180;//旋转的快慢
 var d=250;			//字体缩放
-var tagboxname=["likebox","dislikebox"];
+var tagboxname=["dislikebox","likebox"];
 var mcList = [[],[]];
 var active = [false,false];
 var lasta = [1,1];
@@ -161,7 +161,9 @@ function tagcloud(tagboxid){
 		
 		mouseX[tagboxid]=oEvent.clientX-(oDiv[tagboxid].offsetLeft+oDiv[tagboxid].offsetWidth/2);
 		mouseY[tagboxid]=oEvent.clientY-(oDiv[tagboxid].offsetTop+oDiv[tagboxid].offsetHeight/2);
-		
+		if(tagboxid==1){
+			console.log(oEvent.clientX,oEvent.clientY,oDiv[tagboxid].offsetLeft+oDiv[tagboxid].offsetWidth/2,oDiv[tagboxid].offsetTop+oDiv[tagboxid].offsetHeight/2);
+		}
 		mouseX[tagboxid]/=5;
 		mouseY[tagboxid]/=5;
 	};
@@ -171,7 +173,7 @@ function tagcloud(tagboxid){
 window.onload=function (){
 	tagcloud(0);
 	tagcloud(1);
-	setInterval(update, 30);
+	setInterval(update, 50);
 };
 
 function update(){
@@ -179,7 +181,7 @@ function update(){
 	var b;
 	
 	for(var i=0;i<mcList.length;i++){
-		if(active)
+		if(active[i])
 		{
 			a = (-Math.min( Math.max( -mouseY[i], -size ), size ) / radius ) * tspeed;
 			b = (Math.min( Math.max( -mouseX[i], -size ), size ) / radius ) * tspeed;
@@ -195,7 +197,7 @@ function update(){
 		
 		if(Math.abs(a)<=0.01 && Math.abs(b)<=0.01)
 		{
-			return;
+			continue;
 		}
 		
 		var c=0;
@@ -316,8 +318,9 @@ function positionAll(tagboxid){
 	}
 }
 
-function doPosition(){
-	for(var i=0;i<mcList.length;i++){
+function doPosition(tagboxid){
+	var i=tagboxid;
+	{
 		var l=oDiv[i].offsetWidth/2;
 		var t=oDiv[i].offsetHeight/2;
 		for(var j=0;j<mcList[i].length;j++)
