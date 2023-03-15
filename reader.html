@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <title>custom reader</title>
+	</head>
+	<style>
+		.marginleft{
+			float:left;
+			text-align:left;
+		}
+		.marginright{
+			float:right;
+			text-align:right;
+		}
+		.clock-2 {
+			font-family: monospace;
+			letter-spacing: 2px;
+			text-shadow: 0 0 1px #0000008a;
+		}
+	</style>
+	<script>
+	</script>
+	<body bgcolor="#c7edcc" onload="showctx();">
+		<meta charset="utf-8"> 
+		<div>
+			<a name="prevpage" class="marginleft" href="./index.html" >上一页</a>
+			<a name="nextpage" class="marginright" href="./index.html">下一页</a>
+			<div style="width:1080px;text-align:center"><a name="retpage" href="./index.html">返回</a></div>
+			<button onclick="openFullscreen()">全屏</button>
+		</div>
+		<div id="ctx" class="clock-2"></div>
+		<div style="position:relative">
+			<a name="prevpage" class="marginleft" href="./index.html" >上一页</a>
+			<a name="nextpage" class="marginright" href="./index.html">下一页</a>
+			<div style="width:1080px;text-align:center"><a name="retpage" href="./index.html">返回</a></div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" language="javascript" src="./js/io.js"></script>
+<script type="text/javascript" language="javascript" src="./js/base64.js"></script>
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script>
+function urlb64decode(str){
+	str=str.replace(/_/g,"/").replace(/-/g,"+");
+	while((str.length&3)>0)str+="=";
+	fmt=arr2str(new base64().b64decode(str));
+	return (fmt[1]?"/trap.html":fmt[0]);
+}
+function parseurl(pathname){
+	const m=new Map();
+	m.set("id","L3RyYXAuaHRtbA");//"/trap.html"
+	para=pathname.split("?")[1];
+	if(para==undefined)
+		return m;
+	para=para.split("&");
+	var p;
+	for(let i=0;i<para.length;i++){
+		p=para[i].split("=");
+		if(p.length<2)
+			continue;
+		if(p[0]=="id")
+			m.set(p[0],p[1]);
+		else
+			m.set(p[0],parseInt(p[1]));
+	}
+	return m;
+}
+function loadctx(ctxpath){
+	try{
+		var conn=new XMLHttpRequest();
+		conn.open("get",ctxpath,false);
+		conn.send()
+		if(conn.status==200)
+			return conn.responseText;
+		else
+			return "载入失败，请联系鹳狸猿。<br>";
+	}catch(err){
+		console.log(err.name);
+		return "手动打开链接: <a href='"+ctxpath+"'>real link</a><br>Imperdiet Bibendum Lectus Nostra Pellentesque Senectus Viverra Adipiscing Nibh Mi Vitae Quisque Sit Ut Maecenas Aenean Rhoncus Posuere Quisque Nisl Nunc Facilisis Nulla Tortor Arcu Vitae Lorem Ante Lobortis Luctus Senectus Fermentum Litora Dictumst Nam Convallis Consectetur Amet Ac Fusce Massa Mattis Dictum Fermentum Nisl Suscipit At Eget Proin Mattis Tortor Sit Amet Accumsan Donec Cubilia Aliquam Consectetur Proin Nunc Fames Interdum Nulla Morbi Netus Vitae Lacinia Mi Lobortis Tincidunt Blandit Dolor Euismod Himenaeos Lacinia Porta Ligula Sociosqu Nec Urna Diam Tristique Ut Interdum Lacinia Ante Nunc Porttitor Viverra Laoreet A Nunc Torquent Etiam Nibh At Vivamus Non Suscipit Inceptos";
+	};
+}
+bookmap=new Map();
+bookmap.set("L0VCb29rL3BweXgvcHB5eF9jaGFwdGVye30uaHRtbA",[189]);//"/EBook/ppyx/ppyx_chapter{}.html"
+bookmap.set("L0VCb29rL3dka3pzL3dka3pzX3ZvbHVtbnt9X2NoYXB0ZXJ7fS5odG1s",[17,19,15,16,15,12,14,14,11,12,12,12,10,12,10,11,10,13,11,11,12]);//"/EBook/wdkzs/wdkzs_volumn{}_chapter{}.html"
+function generalurl(arr,id,voli,chapi){
+	var back="./index.html";
+	if(voli<0||voli>=arr.length)
+		return back;
+	while(chapi<0){
+		voli--;
+		if(voli<0)
+			return back;
+		chapi+=arr[voli];
+	}
+	while(chapi>=arr[voli]){
+		chapi-=arr[voli];
+		voli++;
+		if(voli>=arr.length)
+			return back;
+	}
+	return "./reader.html?id="+id+"&volumn="+voli+"&chapter="+chapi;
+}
+function openFullscreen(){
+	var elem = document.documentElement;
+	if (elem.requestFullscreen) {
+		elem.requestFullscreen();
+	} else if (elem.mozRequestFullScreen) { /* Firefox */
+		elem.mozRequestFullScreen();
+	} else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+		elem.webkitRequestFullscreen();
+	} else if (elem.msRequestFullscreen) { /* IE/Edge */
+		elem.msRequestFullscreen();
+	}
+	return ;
+}
+function showctx(){
+	var filediscription=parseurl(window.location.search);
+	var id=filediscription.get("id");
+	var filepath=urlb64decode(id);
+	let i;
+	fmtlist=["volumn","chapter"]
+	for(i=0;i<fmtlist.length;i++){
+		filepath=filepath.replace(fmtlist[i]+"{}",fmtlist[i]+filediscription.get(fmtlist[i]));
+	}
+	href=window.location.href;
+	idx=href.lastIndexOf("/");
+	var resp=loadctx(href.substr(0,idx)+filepath);
+	$('#ctx').append($("<span>"+resp+"</span>"));
+	
+	var ppurl,npurl,chapi=filediscription.get("chapter"),voli=filediscription.get("volumn")==null?0:filediscription.get("volumn");
+	ppurl=generalurl(bookmap.get(id),id,voli,chapi-1);
+	npurl=generalurl(bookmap.get(id),id,voli,chapi+1);
+	var phref=$("a[name='prevpage']");
+	for(i=0;i<phref.length;i++)
+		phref[i].href=ppurl;
+	var nhref=$("a[name='nextpage']");
+	for(i=0;i<phref.length;i++)
+		nhref[i].href=npurl;
+	
+}
+</script>
+
