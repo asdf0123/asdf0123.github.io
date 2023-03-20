@@ -5,6 +5,10 @@
 	    <title>custom reader</title>
 	</head>
 	<style>
+		a{
+			font-size: 36px;
+		}
+		
 		.marginleft{
 			float:left;
 			text-align:left;
@@ -28,7 +32,7 @@
 			<a name="prevpage" class="marginleft" href="./index.html" >上一页</a>
 			<a name="nextpage" class="marginright" href="./index.html">下一页</a>
 			<div style="width:1080px;text-align:center"><a name="retpage" href="./index.html">返回</a></div>
-			<button onclick="openFullscreen()">全屏</button>
+			<button onclick="openFullscreen()" style="font-size:36px;">全屏</button>
 		</div>
 		<div id="ctx" class="clock-2"></div>
 		<div style="position:relative">
@@ -40,7 +44,6 @@
 </html>
 <script type="text/javascript" language="javascript" src="./js/io.js"></script>
 <script type="text/javascript" language="javascript" src="./js/base64.js"></script>
-<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script>
 function urlb64decode(str){
 	str=str.replace(/_/g,"/").replace(/-/g,"+");
@@ -49,7 +52,7 @@ function urlb64decode(str){
 	return (fmt[1]?"/trap.html":fmt[0]);
 }
 function parseurl(pathname){
-	const m=new Map();
+	var m=new Map();
 	m.set("id","L3RyYXAuaHRtbA");//"/trap.html"
 	para=pathname.split("?")[1];
 	if(para==undefined)
@@ -78,10 +81,10 @@ function loadctx(ctxpath){
 			return "载入失败，请联系鹳狸猿。<br>";
 	}catch(err){
 		console.log(err.name);
-		return "手动打开链接: <a href='"+ctxpath+"'>real link</a><br>Imperdiet Bibendum Lectus Nostra Pellentesque Senectus Viverra Adipiscing Nibh Mi Vitae Quisque Sit Ut Maecenas Aenean Rhoncus Posuere Quisque Nisl Nunc Facilisis Nulla Tortor Arcu Vitae Lorem Ante Lobortis Luctus Senectus Fermentum Litora Dictumst Nam Convallis Consectetur Amet Ac Fusce Massa Mattis Dictum Fermentum Nisl Suscipit At Eget Proin Mattis Tortor Sit Amet Accumsan Donec Cubilia Aliquam Consectetur Proin Nunc Fames Interdum Nulla Morbi Netus Vitae Lacinia Mi Lobortis Tincidunt Blandit Dolor Euismod Himenaeos Lacinia Porta Ligula Sociosqu Nec Urna Diam Tristique Ut Interdum Lacinia Ante Nunc Porttitor Viverra Laoreet A Nunc Torquent Etiam Nibh At Vivamus Non Suscipit Inceptos";
+		return "手动打开链接: <a href='"+ctxpath+"'>real link</a><br>Lorem ipsum";
 	};
 }
-bookmap=new Map();
+var bookmap=new Map();
 bookmap.set("L0VCb29rL3BweXgvcHB5eF9jaGFwdGVye30uaHRtbA",[189]);//"/EBook/ppyx/ppyx_chapter{}.html"
 bookmap.set("L0VCb29rL3dka3pzL3dka3pzX3ZvbHVtbnt9X2NoYXB0ZXJ7fS5odG1s",[17,19,15,16,15,12,14,14,11,12,12,12,10,12,10,11,10,13,11,11,12]);//"/EBook/wdkzs/wdkzs_volumn{}_chapter{}.html"
 function generalurl(arr,id,voli,chapi){
@@ -120,25 +123,28 @@ function showctx(){
 	var id=filediscription.get("id");
 	var filepath=urlb64decode(id);
 	let i;
-	fmtlist=["volumn","chapter"]
+	fmtlist=["volumn","chapter"];
 	for(i=0;i<fmtlist.length;i++){
 		filepath=filepath.replace(fmtlist[i]+"{}",fmtlist[i]+filediscription.get(fmtlist[i]));
 	}
 	href=window.location.href;
 	idx=href.lastIndexOf("/");
 	var resp=loadctx(href.substr(0,idx)+filepath);
-	$('#ctx').append($("<span>"+resp+"</span>"));
+	document.getElementById('ctx').innerHTML=resp;
+	//console.log(resp);
 	
-	var ppurl,npurl,chapi=filediscription.get("chapter"),voli=filediscription.get("volumn")==null?0:filediscription.get("volumn");
+	if(bookmap.get(id)==undefined)
+		return ;
+	var ppurl,npurl,chapi=filediscription.get("chapter"),voli=filediscription.get("volumn")==undefined?0:filediscription.get("volumn");
 	ppurl=generalurl(bookmap.get(id),id,voli,chapi-1);
 	npurl=generalurl(bookmap.get(id),id,voli,chapi+1);
-	var phref=$("a[name='prevpage']");
+	var phref=document.getElementsByName("prevpage");
 	for(i=0;i<phref.length;i++)
 		phref[i].href=ppurl;
-	var nhref=$("a[name='nextpage']");
+	var nhref=document.getElementsByName("nextpage");
 	for(i=0;i<phref.length;i++)
 		nhref[i].href=npurl;
-	
+	return ;
 }
 </script>
 

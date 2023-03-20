@@ -5,7 +5,7 @@
 		<style type="text/css">
 			.tagbox {
 				position: relative;
-				margin: 20px auto 0px;
+				margin: auto 0px;
 				width: 360px;
 				height: 360px;
 			}
@@ -39,7 +39,7 @@
 	</head>
 	<body bgcolor="#008080">
 		<meta charset="utf-8">
-		<img src="pic/Drake-no.jpg" height=360 style="float:left">
+		<img src="pic/Drake-no.jpg" height=360 width=360 style="float:left">
 		<div id="dislikebox" class="tagbox" style="float:left">
 			<a>茄子</a>
 			<a>芹菜</a>
@@ -62,7 +62,7 @@
 			<a>双重标准</a>
 		</div>
 		<div style="clear:both"></div>
-		<img src="pic/Drake-yes.jpg" height=360 style="float:left">
+		<img src="pic/Drake-yes.jpg" height=360 width=360 style="float:left">
 		<div id="likebox" class="tagbox" style="float:left">
 			<a>睡</a>
 			<a>吃</a>
@@ -92,6 +92,7 @@
 			<a>泡芙</a>
 			<a>溜冰</a>
 			<a>破解</a>
+			<a>意义不明的物品</a>
 			<a>上网冲浪</a>
 			<a>过山车</a>
 			<a>旋转木马</a>
@@ -103,8 +104,23 @@
 			<a style="visibility: hidden">秦雅歆</a>
 		</div>
 		<div style="clear:both"></div>
+		<img src="pic/80f0a9e8tw1duagm0dmzbj.jpg" height=360 width=360 style="float:left">
+		<div id="wishingbox" class="tagbox" style="float:left">
+			<a>学厨师做菜</a>	
+			<a>PC大作</a>
+			<a>和可爱的妹子贴贴</a>
+			<a>搭NAS服务器P2P</a>
+			<a>泰拳</a>
+			<a>冲浪</a>
+			<a>整理收集的歌曲的歌词</a>
+			<a>整理收集的沙雕图并存档</a>
+			<a>FPV RC</a>
+			<a>VR</a>
+			<a>Nexys4上开发个小游戏</a>
+			<a>开锁</a>
+		</div>
+		<div style="clear:both"></div>
 		从阵营九宫格来看，我觉得我属于中立邪恶，大多数时候我能意识到应当怎么选，但我往往不这么选，因为爽。我自认为是一个功利主义者、悲观主义、虚无主义者。在人生的意义上，我比较认同叔本华(也可能是我没接触到和我更契合的观念)，正在努力追求半满足的人生。<br>
-		想尝试但是没试过的事物：学厨师做菜、PC大作、和可爱的妹子贴贴、搭NAS服务器P2P、泰拳、冲浪、整理收集的歌曲的歌词、整理收集的沙雕图并存档、FPV RC、VR、Nexys4上开发个小游戏、开锁<br>
 		
 		<a href="index.html">back</a>
 	</body>	
@@ -113,22 +129,22 @@
 var radius = 126;	//牵涉到半径
 var dtr = Math.PI/180;//旋转的快慢
 var d=250;			//字体缩放
-var tagboxname=["dislikebox","likebox"];
-var mcList = [[],[]];
-var active = [false,false];
-var lasta = [1,1];
-var lastb = [1,1];
+var tagboxname=["dislikebox","likebox","wishingbox"];
+var mcList = [[],[],[]];
+var active = [false,false,false];
+var lasta = [1,1,1];
+var lastb = [1,1,1];
 var distr = true;
 var tspeed=5;
-var size=250;
+var size=360;
 
-var mouseX=[0,0];
-var mouseY=[0,0];
+var mouseX=[0,0,0];
+var mouseY=[0,0,0];
 
 var howElliptical=1;
 
-var aA=[null,null];
-var oDiv=[null,null];
+var aA=[null,null,null];
+var oDiv=[null,null,null];
 function tagcloud(tagboxid){
 	var i=0;
 	var oTag=null;
@@ -164,9 +180,9 @@ function tagcloud(tagboxid){
 		var oEvent=window.event || ev;
 		
 		mouseX[tagboxid]=oEvent.clientX-(oDiv[tagboxid].offsetLeft+oDiv[tagboxid].offsetWidth/2);
-		mouseY[tagboxid]=oEvent.clientY-(oDiv[tagboxid].offsetTop+oDiv[tagboxid].offsetHeight/2);
-		mouseX[tagboxid]/=5;
-		mouseY[tagboxid]/=5;
+		mouseY[tagboxid]=oEvent.clientY+(document.documentElement.scrollTop||document.body.scrollTop)-(oDiv[tagboxid].offsetTop+oDiv[tagboxid].offsetHeight/2);
+		mouseX[tagboxid]/=4;
+		mouseY[tagboxid]/=4;
 	};
 	
 }
@@ -174,6 +190,7 @@ function tagcloud(tagboxid){
 window.onload=function (){
 	tagcloud(0);
 	tagcloud(1);
+	tagcloud(2);
 	setInterval(update, 50);
 };
 
