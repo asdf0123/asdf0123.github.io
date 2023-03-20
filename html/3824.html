@@ -170,7 +170,6 @@ function inputNo(text) {
 
 function clearInput() {
 	inputArr = [];
-	arr = [];
 	input.innerHTML = "";
 	output.innerHTML = "";
 }
@@ -456,7 +455,7 @@ function calcResult() {
 		//console.log(i);
 		ans.push(i);
 	}
-	ans.sort((a,b)=>{return a.replace(/[\(\)]/g,"")/*.replace(/\/\//g,"$")*/>b.replace(/[\(\)]/g,"")/*.replace(/\/\//g,"$")*/;});
+	ans.sort((a,b)=>{return a.replace(/[\(\)]/g,"").replace(/A/g,"1")/*.replace(/\/\//g,"$")*/>b.replace(/[\(\)]/g,"").replace(/A/g,"1")/*.replace(/\/\//g,"$")*/;});
 	output.innerHTML = ans.length==0?"<span style='color: red'>无结果!</span>":ans.join("<br>");
 }
 
