@@ -72,25 +72,25 @@
 		<div id="container">
 			<div id="input"></div>
 			<div>
-				<button id="clear" onclick="clearInput()">清空</button>
+				<button onclick="inputNo(this.innerHTML)">10</button>
 				<button onclick="inputNo(11)">J</button>
 				<button onclick="inputNo(12)">Q</button>
 				<button onclick="inputNo(13)">K</button>
 			</div>
 			<div>
-				<button id="back" onclick="backSpace()">退格</button>
+				<button id="calc" onclick="calcResult()" title="回车">计算</button>
 				<button onclick="inputNo(this.innerHTML)">7</button>
 				<button onclick="inputNo(this.innerHTML)">8</button>
 				<button onclick="inputNo(this.innerHTML)">9</button>
 			</div>
 			<div>
-				<button id="calc" onclick="calcResult()" title="回车">计算</button>
+				<button id="back" onclick="backSpace()">退格</button>
 				<button onclick="inputNo(this.innerHTML)">4</button>
 				<button onclick="inputNo(this.innerHTML)">5</button>
 				<button onclick="inputNo(this.innerHTML)">6</button>
 			</div>
 			<div>
-				<button onclick="inputNo(this.innerHTML)">10</button>
+				<button id="clear" onclick="clearInput()">清空</button>
 				<button onclick="inputNo(1)">A</button>
 				<button onclick="inputNo(this.innerHTML)">2</button>
 				<button onclick="inputNo(this.innerHTML)">3</button>

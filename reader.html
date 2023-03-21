@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
 	    <title>custom reader</title>
 	</head>
 	<style>
@@ -32,7 +31,6 @@
 			<a name="prevpage" class="marginleft" href="./index.html" >上一页</a>
 			<a name="nextpage" class="marginright" href="./index.html">下一页</a>
 			<div style="width:1080px;text-align:center"><a name="retpage" href="./index.html">返回</a></div>
-			<button onclick="openFullscreen()" style="font-size:36px;">全屏</button>
 		</div>
 		<div id="ctx" class="clock-2"></div>
 		<div style="position:relative">
@@ -104,19 +102,6 @@ function generalurl(arr,id,voli,chapi){
 			return back;
 	}
 	return "./reader.html?id="+id+"&volumn="+voli+"&chapter="+chapi;
-}
-function openFullscreen(){
-	var elem = document.documentElement;
-	if (elem.requestFullscreen) {
-		elem.requestFullscreen();
-	} else if (elem.mozRequestFullScreen) { /* Firefox */
-		elem.mozRequestFullScreen();
-	} else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-		elem.webkitRequestFullscreen();
-	} else if (elem.msRequestFullscreen) { /* IE/Edge */
-		elem.msRequestFullscreen();
-	}
-	return ;
 }
 function showctx(){
 	var filediscription=parseurl(window.location.search);
