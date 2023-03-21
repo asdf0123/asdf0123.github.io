@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>soviet joke</title>
+	</head>
+	<style>
+		body{
+			font-size: 24px;
+		}
+	</style>
+	<body bgcolor="#c7edcc" onload="showctx();">
+		<h1>苏联笑话</h1>
+		<div>
+			<p>
+				姓名扫盲：<br />
+				弗拉基米尔同志=弗拉基米尔·伊里奇·乌里昂诺夫（列宁）<br />
+				约瑟夫同志=约瑟夫·维萨里昂诺维奇·朱加什维利（斯大林）<br />
+				尼基塔同志=尼基塔·谢尔盖耶维奇·赫鲁晓夫<br />
+				列昂尼德同志=列昂尼德·伊里奇·勃列日涅夫<br />
+				尤里同志=尤里·弗拉基米罗维奇·安德罗波夫<br />
+				康斯坦丁同志=康斯坦丁·乌斯季诺维奇·契尔年科<br />
+				米哈伊尔同志=米哈伊尔·谢尔盖耶维奇·戈尔巴乔夫<br />
+				拉甫连季同志=拉甫连季·巴甫洛维奇·贝利亚<br />
+				鲍里斯=鲍里斯·尼古拉耶维奇·叶利钦<br />
+				约翰先生=约翰·菲茨杰拉德·肯尼迪<br />
+				吉米先生=吉米·卡特<br />
+				罗纳德先生=罗纳德·里根<br />
+				英迪拉先生=英迪拉·甘地<br />
+				安瓦尔先生=安瓦尔·萨达特<br />
+			</p>
+		</div>
+		<div>
+			<p>
+				<a id="prevjoke" href="./sovietjoke.html">上一条</a> |
+				<a href="./sovietjoke.html">随机笑话</a> |
+				<a href="../index.html">返回</a> | 
+				<a href="https://disksing.com/sao-gen-gen/3" target="_blank">苏联笑话生成器</a> | 
+				<a id="nextjoke" href="./sovietjoke.html">下一条</a>
+			</p>
+		</div>
+		<div id="ctx" style="border-style: solid;background-color: #94b199;border-width: 2px 0 2px 0;">
+		</div>
+	</body>
+</html>
+<script>
+const tot=712;
+function loadctx(ctxpath){
+	try{
+		var conn=new XMLHttpRequest();
+		conn.open("get",ctxpath,false);
+		conn.send()
+		if(conn.status==200)
+			return conn.responseText;
+		else
+			return "载入失败，请联系鹳狸猿。<br>";
+	}catch(err){
+		console.log(err.name);
+		return "手动打开链接: <a href='"+ctxpath+"'>real link</a>";
+	};
+}
+function showctx(){
+	let id=parseInt(window.location.search.substr(1)||Math.floor(Math.random()*tot));
+	var resp=loadctx("../EBook/slxh/slxh_chapter"+id+".txt");
+	resp=resp.replace(/\n/g,"<br />");
+
+	document.getElementById('ctx').innerHTML=resp;
+
+	document.getElementById("prevjoke").href="./sovietjoke.html?"+(id+tot-1)%tot;
+	document.getElementById("nextjoke").href="./sovietjoke.html?"+(id+1)%tot;
+	return;
+}
+</script>
