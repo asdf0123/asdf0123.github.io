@@ -3,26 +3,28 @@
 	<head>
 		<title>zjlhhh123's notes</title>
 	</head>
-	<body bgcolor="#008080">
+	<body bgcolor="#008080" onload="randommusic();">
 		<meta charset="utf-8"> 
 		<h1>页面介绍</h1>
 		这是自留地,方便我手机也能访问一些电脑上的资源.<br>
-		不需要你认可,不需要你赞同,但是你留给我就可以了.<br>
+		网页某些肉眼不可见的地方包含[NSFW]内容.不需要你认可,不需要你赞同,但是你留给我就可以了.<br>
 		因为不懂css,所以样式很丑.<br>
 		<h2>个人介绍</h2>
 		<a href="selfintreduction.html">个人介绍</a><br>
 		<h2>音乐</h2>
-		<iframe border="0" marginwidth="0" marginheight="0" src="https://music.163.com/outchain/player?type=2&id=1697604&auto=0&height=66" width="330" height="86" frameborder="no"></iframe><br>
+		<audio id="mjmusic" controls="" src="http://music.163.com/song/media/outer/url?id=21177538.mp3" loop></audio><br>
 		<h2>电子书</h2>
 		<a href="EBook/Der Prozess.txt">审判</a><br>
 		<a href="EBook/FlowerAndMoonTrace.txt">花月痕</a><br>
 		<a href="EBook/FoldingBeijing.txt">北京折叠</a><br>
 		<a href="EBook/La servitude volontaire.html">论自愿为奴</a><br>
 		<a href="EBook/QuestionsAndAnswersOnBuddhistKnowledge.txt">佛教常识问答</a><br>
-		<a href="EBook/SelectedStoriesOfOHenry.txt">欧·亨利短篇小说集</a><br>
 		<a href="EBook/TheSilenceCity.txt">寂静之城</a><br>
-		<a href="reader.html?id=L0VCb29rL3dka3pzL3dka3pzX3ZvbHVtbnt9X2NoYXB0ZXJ7fS5odG1s&volumn=0&chapter=0">武道狂之诗</a><br>
-		<a href="reader.html?id=L0VCb29rL3BweXgvcHB5eF9jaGFwdGVye30uaHRtbA&volumn=0&chapter=0" style="color:#008080">飘飘欲仙</a><br>
+		<a href="EBook/上海14岁女孩跳楼轻生，千字遗书控诉悲惨生活.txt">上海14岁女孩跳楼轻生，千字遗书控诉悲惨生活</a><br>
+		<a href="EBook/SelectedStoriesOfOHenry.txt">欧·亨利短篇小说集</a><br>
+		<a href="html/bookindex.html?id=wdkzs">武道狂之诗</a><br>
+		<a href="html/bookindex.html?id=bsjzdlbjl">不说，就真的来不及了</a><br>
+		<a href="html/bookindex.html?id=ppyx" style="visibility: hidden">飘飘欲仙</a><br>
 		<h2>小工具</h2>
 		<a href="html/hardware.html">硬件工具</a><br>
 		<a href="html/crypto.html">密码学工具</a><br>
@@ -30,37 +32,48 @@
 		<a href="html/3824.html">24点计算器</a><br>
 		<a href="html/countdown.html" target="_blank">倒计时</a><br>
 		<h2>书签</h2>
-		<a href="https://www.smbc-comics.com" target="_blank">Saturday Morning Breakfast Cereal</a><br>
-		<a href="https://www.pidjin.net" target="_blank">Fredo&Pidjin</a><br>
-		<a href="https://falseknees.com" target="_blank">FALSE KNEES</a><br>
-		<a href="https://www.stuartmcmillen.com" target="_blank">Stuart McMillen</a><br>
-		<a href="https://http.cat/" target="_blank">HTTP Cats</a><br>
-		<a href="https://itty.bitty.site" target="_blank">itty.bitty.site</a><br>
-		<a href="https://ooooooooooooooooooooooo.ooo" target="_blank">Looooooooooooooooooooooonger</a><br>
-		<a href="https://g.luciaz.me" target="_blank">Google</a><br>
-		<a href="https://www.iloveimg.com" target="_blank">I&hearts;IMG</a><br>
-		<a href="https://gojs.net" target="_blank">GoJS</a><br>
-		<a href="https://cloudconvert.com/webm-to-gif" target="_blank">cloudconvert</a><br>
-		<a href="https://ezgif.com/video-to-gif" target="_blank">ezgif</a><br>
-		<a href="https://www.musicenc.com" target="_blank">MusicEnc</a><br>
-		<a href="https://songsear.ch" target="_blank">Song Search</a><br>
-		<a href="https://saucenao.com" target="_blank">SauceNAO</a><br>
-		<a href="https://petalica.com" target="_blank">Petalica Paint</a><br>
-		<a href="https://regex101.com" target="_blank">regex 101</a><br>
-		<a href="http://detexify.kirelabs.org" target="_blank">Detexify</a><br>
-		<a href="https://www.deepl.com/translator" target="_blank">DeepL Translate</a><br>
-		<a href="https://proofwiki.org" target="_blank">ProofWiki</a><br>
-		<a href="https://findtheinvisiblecow.com" target="_blank">Find the Invisible Cow</a><br>
-		<a href="https://www.micro-pano.com" target="_blank">GIRL WITH PEARL EARRING</a><br>
-		<a href="https://www.paperpaul.com" target="_blank">Paper Paul</a><br>
-		<a href="https://peterdahmen.de" target="_blank">Peter Dahmen's Blog</a><br>
-		<a href="https://drububu.com" target="_blank">Arjan Westerdiep's Blog</a><br>
+		漫画<a href="https://www.smbc-comics.com" target="_blank">Saturday Morning Breakfast Cereal</a><br>
+		漫画<a href="https://www.pidjin.net" target="_blank">Fredo&Pidjin</a><br>
+		漫画<a href="https://falseknees.com" target="_blank">FALSE KNEES</a><br>
+		漫画<a href="https://www.stuartmcmillen.com" target="_blank">Stuart McMillen</a><br>
+		漫画<a href="https://bato.to" target="_blank">Bato.to</a><br>
+		快速识别响应<a href="https://http.cat/" target="_blank">HTTP Cats</a><br>
+		编码信息到网址<a href="https://itty.bitty.site" target="_blank">itty.bitty.site</a><br>
+		只用字母o编码网址<a href="https://ooooooooooooooooooooooo.ooo" target="_blank">Looooooooooooooooooooooonger</a><br>
+		谷歌镜像<a href="https://g.luciaz.me" target="_blank">Google</a><br>
+		图片放大<a href="https://bigjpg.com" target="_blank">Bigjpg</a><br>
+		图片转换<a href="https://www.iloveimg.com" target="_blank">I&hearts;IMG</a><br>
+		绘图<a href="https://gojs.net" target="_blank">GoJS</a><br>
+		在线函数图<a href="https://www.geogebra.org/calculator" target="_blank">GeoGebra</a><br>
+		在线生成有向图<a href="https://csacademy.com/app/graph_editor" target="_blank">Graph Editor</a><br>
+		几何小工具<a href="https://csacademy.com/app/geometry_widget" target="_blank">Geometry Widget</a><br>
+		文本找不同<a href="https://csacademy.com/app/diffing_tool" target="_blank">Diffing Tool</a><br>
+		在线处理字符<a href="https://string-functions.com" target="_blank">String Functions</a><br>
+		格式转换<a href="https://cloudconvert.com/webm-to-gif" target="_blank">cloudconvert</a><br>
+		mp4转gif<a href="https://ezgif.com/video-to-gif" target="_blank">ezgif</a><br>
+		歌曲搜索<a href="https://www.musicenc.com" target="_blank">MusicEnc</a><br>
+		歌词搜歌<a href="https://songsear.ch" target="_blank">Song Search</a><br>
+		图片搜漫画<a href="https://saucenao.com" target="_blank">SauceNAO</a><br>
+		线稿上色<a href="https://petalica.com" target="_blank">Petalica Paint</a><br>
+		正则表达式检查<a href="https://regex101.com" target="_blank">regex 101</a><br>
+		手写符号转LaTeX<a href="http://detexify.kirelabs.org" target="_blank">Detexify</a><br>
+		翻译<a href="https://www.deepl.com/translator" target="_blank">DeepL Translate</a><br>
+		数学证明<a href="https://proofwiki.org" target="_blank">ProofWiki</a><br>
+		小游戏<a href="https://findtheinvisiblecow.com" target="_blank">Find the Invisible Cow</a><br>
+		戴珍珠耳环的少女<a href="https://www.micro-pano.com" target="_blank">GIRL WITH PEARL EARRING</a><br>
+		纸艺<a href="https://www.paperpaul.com" target="_blank">Paper Paul</a><br>
+		立体贺卡<a href="https://peterdahmen.de" target="_blank">Peter Dahmen's Blog</a><br>
+		模型处理<a href="https://drububu.com" target="_blank">Arjan Westerdiep's Blog</a><br>
 		<a href="https://www.aemon.top" target="_blank">Aemon's Blog</a><br>
-		<a href="https://hmpg.net" target="_blank">End of the Internet</a><br>
+		指令速查<a href="https://www.felixcloutier.com" target="_blank">Félix Cloutier</a><br>
+		因特网的尽头<a href="https://hmpg.net" target="_blank">End of the Internet</a><br>
 		<a href="https://16k.club" target="_blank" style="visibility: hidden">16K</a><br>
 		<a href="https://pr.reactor.cc" target="_blank" style="visibility: hidden">Pleasure Room</a><br>
 		<a href="https://www.pornmd.com" target="_blank" style="visibility: hidden">PornMD</a><br>
+		<a href="https://fapello.com" target="_blank" style="visibility: hidden">Fapello</a><br>
 		<a href="https://rokuhentai.com" target="_blank" style="visibility: hidden">rokuhentai</a><br>
+		<a href="https://rawsuki.net" target="_blank" style="visibility: hidden">Manga Raw download</a><br>
+		<a href="http://www.mtsyt.com" target="_blank" style="visibility: hidden">模特摄影图</a><br>
 		<a href="https://www.nasa.gov/content/goddard/what-did-hubble-see-on-your-birthday" target="_blank">哈勃望远镜在你生日那天看到了什么</a><br>
 		<a href="http://demo.axureshop.com/?url=https://axhub.im/pro/303a41673fc87a00/&buyurl" target="_blank">地府管理系统(无实际功能)</a><br>
 		<a href="https://ac.yunyoujun.cn" target="_blank">在线空调</a><br>
@@ -92,6 +105,12 @@
 	</body>	
 </html>
 <script type="text/javascript" language="javascript">
+function randommusic(){
+	var lst=[1697653,1698413,1698421,1698432,21177538,28493451];
+	document.getElementById("mjmusic").src="http://music.163.com/song/media/outer/url?id="+lst[Math.floor(Math.random()*lst.length)]+".mp3";
+	//console.log(document.getElementById("mjmusic").src);
+	return ;
+}
 function ppap(){
 	var pen=document.getElementById("pen").value;
 	var apple=document.getElementById("apple").value;

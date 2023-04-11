@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <title>custom reader</title>
+	</head>
+	<style>
+		a{
+			font-size: 36px;
+		}
+		
+		.marginleft{
+			float:left;
+			text-align:left;
+		}
+		.marginright{
+			float:right;
+			text-align:right;
+		}
+		.clock-2 {
+			font-family: monospace;
+			font-size: 36px;
+			letter-spacing: 2px;
+			text-shadow: 0 0 1px #0000008a;
+		}
+	</style>
+	<script>
+	</script>
+	<body bgcolor="#c7edcc" onload="showctx();">
+		<meta charset="utf-8"> 
+		<div>
+			<a name="prevpage" class="marginleft" href="../index.html" >上一页</a>
+			<a name="nextpage" class="marginright" href="../index.html">下一页</a>
+			<div style="width:1080px;text-align:center"><a name="retpage" href="../index.html">返回</a></div>
+		</div>
+		<div id="ctx" class="clock-2"></div>
+		<div style="position:relative">
+			<a name="prevpage" class="marginleft" href="../index.html" >上一页</a>
+			<a name="nextpage" class="marginright" href="../index.html">下一页</a>
+			<div style="width:1080px;text-align:center"><a name="retpage" href="../index.html">返回</a></div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" language="javascript" src="../js/bookinfo.js"></script>
+<script>
+function loadFile(url) {
+	fetch(url)
+		.then(response => response.text())
+		.then(text => {
+			document.getElementById('ctx').innerHTML= text;
+		})
+		.catch(error => console.error(error));
+}
+function generalurl(arr,id,voli,chapi){
+	var back="./bookindex.html?id="+id;
+	if(voli<0||voli>=arr.length)
+		return back;
+	while(chapi<0){
+		voli--;
+		if(voli<0)
+			return back;
+		chapi+=arr[voli];
+	}
+	while(chapi>=arr[voli]){
+		chapi-=arr[voli];
+		voli++;
+		if(voli>=arr.length)
+			return back;
+	}
+	return "./reader.html?id="+id+"&volumn="+voli+"&chapter="+chapi;
+}
+function showctx(){
+	var filediscription=parseurl(window.location.search);
+	var id=filediscription.get("id");
+	if(id==undefined){
+		document.getElementById('ctx').innerHTML="载入失败，请联系鹳狸猿。";
+		return ;
+	}
+	bookinfos=getbookinfo();
+	bookinfo=bookinfos.get(id);
+	filepath=bookinfo[0]+bookinfo[1];
+	fmtlist=["volumn","chapter"];
+	for(i=0;i<fmtlist.length;i++){
+		filepath=filepath.replace(fmtlist[i]+"{}",fmtlist[i]+filediscription.get(fmtlist[i]));
+	}
+
+	loadFile(filepath);
+	//console.log(resp);
+	volchap=bookinfo[2];
+
+	var ppurl,npurl,chapi=filediscription.get("chapter"),voli=filediscription.get("volumn")==undefined?0:filediscription.get("volumn");
+	ppurl=generalurl(volchap,id,voli,chapi-1);
+	npurl=generalurl(volchap,id,voli,chapi+1);
+	var phref=document.getElementsByName("prevpage");
+	for(i=0;i<phref.length;i++)
+		phref[i].href=ppurl;
+	var nhref=document.getElementsByName("nextpage");
+	for(i=0;i<phref.length;i++)
+		nhref[i].href=npurl;
+	var rhref=document.getElementsByName("retpage");
+	for(i=0;i<phref.length;i++)
+		rhref[i].href="./bookindex.html?id="+id;
+	return ;
+}
+</script>
+
