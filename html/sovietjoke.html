@@ -44,28 +44,20 @@
 	</body>
 </html>
 <script>
-const tot=711;
-function loadctx(ctxpath){
-	try{
-		var conn=new XMLHttpRequest();
-		conn.open("get",ctxpath,false);
-		conn.send()
-		if(conn.status==200)
-			return conn.responseText;
-		else
-			return "载入失败，请联系鹳狸猿。<br>";
-	}catch(err){
-		console.log(err.name);
-		return "手动打开链接: <a href='"+ctxpath+"'>real link</a>";
-	};
+const tot=712;
+function loadFile(url) {
+	//console.log(url);
+	fetch(url)
+		.then(response => response.text())
+		.then(text => {
+			document.getElementById('ctx').innerHTML= text.replace(/\n/g,"<br />");
+		})
+		.catch(error => console.error(error));
 }
 function showctx(){
 	let id=parseInt(window.location.search.substr(1)||Math.floor(Math.random()*tot));
-	var resp=loadctx("../EBook/slxh/slxh_chapter"+id+".txt");
-	resp=resp.replace(/\n/g,"<br />");
-
-	document.getElementById('ctx').innerHTML=resp;
-
+	loadFile("../EBook/slxh/slxh_chapter"+id+".txt");
+	
 	document.getElementById("prevjoke").href="./sovietjoke.html?"+(id+tot-1)%tot;
 	document.getElementById("nextjoke").href="./sovietjoke.html?"+(id+1)%tot;
 	return;

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+			<title>book index</title>
+	</head>
+	<style>
+		a{
+			font-size: 36px;
+		}
+		
+		.marginleft{
+			float:left;
+			text-align:left;
+		}
+		.marginright{
+			float:right;
+			text-align:right;
+		}
+		.clock-2 {
+			font-family: monospace;
+			font-size: 36px;
+			letter-spacing: 2px;
+			text-shadow: 0 0 1px #0000008a;
+		}
+	</style>
+	<script>
+	</script>
+	<body bgcolor="#c7edcc" onload="showctx();">
+		<meta charset="utf-8"> 
+		<div style="text-align:center"><a name="retpage" href="../index.html">返回</a></div>
+		<div id="ctx" class="clock-2"></div>
+		<div style="text-align:center"><a name="retpage" href="../index.html">返回</a></div>
+	</body>
+</html>
+<script type="text/javascript" language="javascript" src="../js/bookinfo.js"></script>
+<script>
+function loadFile(url) {
+	fetch(url)
+		.then(response => response.text())
+		.then(text => {
+			document.getElementById('ctx').innerHTML= text;
+		})
+		.catch(error => console.error(error));
+}
+function showctx(){
+	filediscription=parseurl(window.location.search);
+	if(filediscription.get("id")==undefined){
+		document.getElementById('ctx').innerHTML="载入失败，请联系鹳狸猿。";
+		return ;
+	}
+	bookinfos=getbookinfo();
+	bookinfo=bookinfos.get(filediscription.get("id"));
+	//console.log(bookinfo);
+	indexname=bookinfo[0]+"index.html";
+	loadFile(indexname);
+	return ;
+}
+</script>
