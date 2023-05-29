@@ -33,16 +33,24 @@
 	</body>
 </html>
 <script type="text/javascript" language="javascript" src="../js/bookinfo.js"></script>
+<script type="text/javascript" language="javascript" src="../js/jquery-3.6.3.min.js"></script>
 <script>
-function loadFile(url) {
-	fetch(url)
+function showtoc(jsonurl,booksz){
+	fetch(jsonurl)
 		.then(response => response.text())
 		.then(text => {
-			document.getElementById('ctx').innerHTML= text;
+			config=$.parseJSON(text);
+			ctx=config["intro"];
+			let i,j;
+			for(i=0;i<booksz.length;i++)
+				for(j=0;j<booksz[i];j++)
+					ctx+="<a href='./reader.html?id="+filediscription.get("id")+"&volumn="+i+"&chapter="+j+"'>"+config["toc"][i][j]+"</a><br />";
+			document.getElementById('ctx').innerHTML=ctx;
 		})
 		.catch(error => console.error(error));
 }
 function showctx(){
+	let i,j;
 	filediscription=parseurl(window.location.search);
 	if(filediscription.get("id")==undefined){
 		document.getElementById('ctx').innerHTML="载入失败，请联系鹳狸猿。";
@@ -50,9 +58,11 @@ function showctx(){
 	}
 	bookinfos=getbookinfo();
 	bookinfo=bookinfos.get(filediscription.get("id"));
-	//console.log(bookinfo);
-	indexname=bookinfo[0]+"index.html";
-	loadFile(indexname);
+	if(bookinfo==undefined){
+		document.getElementById('ctx').innerHTML="载入失败，请联系鹳狸猿。";
+		return ;
+	}
+	config=showtoc(bookinfo[0],bookinfo[2]);
 	return ;
 }
 </script>
