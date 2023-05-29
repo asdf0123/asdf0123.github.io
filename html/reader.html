@@ -77,7 +77,7 @@ function showctx(){
 	}
 	bookinfos=getbookinfo();
 	bookinfo=bookinfos.get(id);
-	filepath=bookinfo[0]+bookinfo[1];
+	filepath=bookinfo[1];
 	fmtlist=["volumn","chapter"];
 	for(i=0;i<fmtlist.length;i++){
 		filepath=filepath.replace(fmtlist[i]+"{}",fmtlist[i]+filediscription.get(fmtlist[i]));

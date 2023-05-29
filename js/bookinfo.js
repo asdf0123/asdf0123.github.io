@@ -1,9 +1,10 @@
 function getbookinfo(){
 	var bookinfos=new Map();
-	bookinfos.set("wdkzs",["../EBook/wdkzs/wdkzs_","volumn{}_chapter{}.html",[189]]);
-	bookinfos.set("ppyx",["../EBook/ppyx/ppyx_","chapter{}.html",[17,19,15,16,15,12,14,14,11,12,12,12,10,12,10,11,10,13,11,11,12]]);
-	bookinfos.set("slxh",["../EBook/slxh/slxh_","chapter{}.txt",[712]]);
-	bookinfos.set("bsjzdlbjl",["../EBook/bsjzdlbjl/bsjzdlbjl_","chapter{}.html",[29]]);
+	bookinfos.set("wdkzs",["../json/EBook/wdkzs_index.json","../EBook/wdkzs/wdkzs_volumn{}_chapter{}.html",[17,19,15,16,15,12,14,14,11,12,12,12,10,12,10,11,10,13,11,11,12]]);
+	bookinfos.set("ppyx",["../json/EBook/ppyx_index.json","../EBook/ppyx/ppyx_chapter{}.html",[189]]);
+	bookinfos.set("slxh",["../json/EBook/slxh_index.json","../EBook/slxh/slxh_chapter{}.txt",[712]]);
+	bookinfos.set("bsjzdlbjl",["../json/EBook/bsjzdlbjl_index.json","../EBook/bsjzdlbjl/bsjzdlbjl_chapter{}.html",[29]]);
+	bookinfos.set("rasm",["../json/EBook/rasm_index.json","../EBook/rasm/rasm_chapter{}.html",[36]]);
 	return bookinfos;
 }
 function parseurl(pathname){
