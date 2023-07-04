@@ -5,6 +5,7 @@ function getbookinfo(){
 	bookinfos.set("slxh",["../json/EBook/slxh_index.json","../EBook/slxh/slxh_chapter{}.txt",[712]]);
 	bookinfos.set("bsjzdlbjl",["../json/EBook/bsjzdlbjl_index.json","../EBook/bsjzdlbjl/bsjzdlbjl_chapter{}.html",[29]]);
 	bookinfos.set("rasm",["../json/EBook/rasm_index.json","../EBook/rasm/rasm_chapter{}.html",[36]]);
+	bookinfos.set("lzywn",["../json/EBook/lzywn_index.json","../EBook/lzywn/lzywn_chapter{}.html",[5]]);
 	return bookinfos;
 }
 function parseurl(pathname){
