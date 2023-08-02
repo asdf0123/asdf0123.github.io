@@ -79,15 +79,14 @@ function showctx(){
 	bookinfo=bookinfos.get(id);
 	filepath=bookinfo[1];
 	fmtlist=["volumn","chapter"];
-	for(i=0;i<fmtlist.length;i++){
-		filepath=filepath.replace(fmtlist[i]+"{}",fmtlist[i]+filediscription.get(fmtlist[i]));
-	}
+	var chapi=filediscription.get("chapter"),voli=filediscription.get("volumn")==undefined?0:filediscription.get("volumn");
+	filepath=eval(filepath);
 
 	loadFile(filepath);
 	//console.log(resp);
 	volchap=bookinfo[2];
 
-	var ppurl,npurl,chapi=filediscription.get("chapter"),voli=filediscription.get("volumn")==undefined?0:filediscription.get("volumn");
+	var ppurl,npurl;
 	ppurl=generalurl(volchap,id,voli,chapi-1);
 	npurl=generalurl(volchap,id,voli,chapi+1);
 	var phref=document.getElementsByName("prevpage");
