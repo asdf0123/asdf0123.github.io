@@ -12,7 +12,7 @@
 		<h2>个人介绍</h2>
 		<a href="selfintreduction.html">个人介绍</a><br>
 		<h2>音乐</h2>
-		<audio id="mjmusic" controls="" src="http://music.163.com/song/media/outer/url?id=1698413.mp3" loop></audio><br>
+		<audio id="mjmusic" controls="" src="./music/healtheworld.mp3" loop></audio><br>
 		<h2>电子书</h2>
 		<a href="EBook/Der Prozess.txt">审判</a><br>
 		<a href="EBook/FlowerAndMoonTrace.txt">花月痕</a><br>
@@ -69,6 +69,7 @@
 		立体贺卡<a href="https://peterdahmen.de" target="_blank">Peter Dahmen's Blog</a><br>
 		模型处理<a href="https://drububu.com" target="_blank">Arjan Westerdiep's Blog</a><br>
 		<a href="https://www.aemon.top" target="_blank">Aemon's Blog</a><br>
+		<a href="https://blog.tanglee.top" target="_blank">Tanglee's Blog</a><br>
 		指令速查<a href="https://www.felixcloutier.com" target="_blank">Félix Cloutier</a><br>
 		shellcode<a href="http://shell-storm.org/shellcode" target="_blank">Shellcodes database for study cases</a>|<a href="https://nets.ec" target="_blank">NetSec</a><br>
 		DVD屏保<a href="https://dvdscreensaver.net" target="_blank">DVD Screensaver</a><br>
@@ -120,13 +121,13 @@
 </html>
 <script type="text/javascript" language="javascript">
 function randommusic(){
-	var lst=[1697653//you are not alone
-	,1698413//heal the world
-	//,1698432//earth song
-	,1699483//man in the mirror
-	,27901387//we are the world
+	var lst=["youarenotalone"//you are not alone
+	,"healtheworld"//heal the world
+	,"earthsong"//earth song
+	,"maninthemirror"//man in the mirror
+	,"wearetheworld"//we are the world
 	];
-	document.getElementById("mjmusic").src="http://music.163.com/song/media/outer/url?id="+lst[Math.floor(Math.random()*lst.length)]+".mp3";
+	document.getElementById("mjmusic").src="./music/"+lst[Math.floor(Math.random()*lst.length)]+".mp3";
 	//console.log(document.getElementById("mjmusic").src);
 	return ;
 }

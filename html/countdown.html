@@ -104,7 +104,7 @@
 		var h = date.getHours(); // 0 - 23
 		var m = date.getMinutes(); // 0 - 59
 		var s = date.getSeconds(); // 0 - 59
-		var d = date.getDate();
+		var d = date.getDate();// 1 - ?
 		var day = date.getDay();
 		var mon = date.getMonth();
 		var y = date.getMonth();
@@ -115,7 +115,7 @@
 		h=24-1-h;
 		m=60-1-m;
 		s=60-1-s;
-		d=monthtable[mon]-1-d;
+		d=monthtable[mon]-d;
 		day=7-1-day;
 		mon=12-1-mon;
 		
