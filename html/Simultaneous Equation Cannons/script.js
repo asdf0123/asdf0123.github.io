@@ -8,23 +8,23 @@ function clear_all() {
 	solution.innerText = "";
 }
 function render_suggestion(init_monsters) {
-	const f=function(x){return x*(init_monsters-2*x);};
+	const f = function (x) { return x * (init_monsters - 2 * x); };
 	const best_fusion_number = init_monsters / 4;// f 的对称轴
 	let msg;
 	if (Number.isInteger(best_fusion_number)) {
-		const x0=best_fusion_number;
-		msg = `子弹数为${init_monsters}时,最优超量数量为${x0*2},最优融合数量为${init_monsters - 2 * x0},初始射程有${f(x0)}种情况`;
+		const x0 = best_fusion_number;
+		msg = `子弹数为${init_monsters}时,最优超量数量为${x0 * 2},最优融合数量为${init_monsters - 2 * x0},初始射程有${f(x0)}种情况`;
 	} else {
 		const x1 = Math.floor(best_fusion_number);
 		const x2 = Math.ceil(best_fusion_number);
 		const best1_value = f(x1);
 		const best2_value = f(x2);
-		if(best1_value===best2_value){
-			msg = `子弹数为${init_monsters}时,最优超量数量为${x1*2}/${x2*2},最优融合数量为${init_monsters - 2 * x1}/${init_monsters - 2 * x2},初始射程有${best1_value}种情况`;
+		if (best1_value === best2_value) {
+			msg = `子弹数为${init_monsters}时,最优超量数量为${x1 * 2}/${x2 * 2},最优融合数量为${init_monsters - 2 * x1}/${init_monsters - 2 * x2},初始射程有${best1_value}种情况`;
 		}
-		else{
-			const x0=best1_value>best2_value?x1:x2;
-			msg = `子弹数为${init_monsters}时,最优超量数量为${x0*2},最优融合数量为${init_monsters - 2 * x0},初始射程有${f(x0)}种情况`;
+		else {
+			const x0 = best1_value > best2_value ? x1 : x2;
+			msg = `子弹数为${init_monsters}时,最优超量数量为${x0 * 2},最优融合数量为${init_monsters - 2 * x0},初始射程有${f(x0)}种情况`;
 		}
 	}
 	suggestion.innerText = msg;
@@ -32,7 +32,7 @@ function render_suggestion(init_monsters) {
 function render_solution(n) {
 	solution.innerText = `射程有${n}种情况`;
 }
-function render_matrix(n, m, data/* shape=(n,m) */) {
+function render_matrix(n, m, data/* shape=(n,m) */, fire_condition) {
 
 	matrix.style.gridTemplateColumns = `80px repeat(${n},40px)`;
 
@@ -81,15 +81,14 @@ function render_matrix(n, m, data/* shape=(n,m) */) {
 		matrix.appendChild(d);
 	}
 
-	function cell(i, j) {
+	function new_cell() {
 		const d = document.createElement("div");
 		d.className = "cell";
-		d.id = `cell_${i}_${j}`;
 		matrix.appendChild(d);
 		return d;
 	}
 
-	let counter=0;
+	let counter = 0;
 	// transpose and display
 	cornerHeader("N", "M");
 	for (j = 0; j < n; j++) {
@@ -97,16 +96,21 @@ function render_matrix(n, m, data/* shape=(n,m) */) {
 	}
 	for (i = 0; i < m; i++) {
 		header(i + 1);
+		const default_flag = fire_condition.has(i + 1);
 		for (j = 0; j < n; j++) {
-			const d = cell(j, i);
+			const d = new_cell();
 			const data_i_j = data[j][i];
 			if (data_i_j.length > 0) {
-				counter+=1;
+				counter += 1;
 				d.classList.add("hit");
 				d.innerText = data_i_j.length;
 				d.title = data_i_j.join("\n");
 			}
-			if (j + 1 == 12) {
+			else if (default_flag) {
+				d.classList.add("misfire");
+			}
+
+			if (j + 1 == 12) {// 怪兽的等级·阶级的一般不超过12
 				d.classList.add("right-divider");
 			}
 		}
@@ -152,22 +156,24 @@ document.getElementById("clac_button").onclick = function () {
 
 		const max_n = extra_fusion_max_level + extra_xyz_max_rank;
 		const max_m = extra_fusion_max_level + extra_xyz_max_rank * 2;
-		let vis = Array.from(
+		const vis = Array.from(
 			{ length: max_n },
 			() => Array.from(
 				{ length: max_m },
 				() => []
 			)
 		);
+		const fire_condition = new Set();
 
 		const enumerate_extra_xyz = [...new Set(extra_xyz)].filter(x => extra_xyz.filter(y => y === x).length >= 2);
 
 		for (const fusion_level of extra_fusion) {
 			for (const xyz_rank of enumerate_extra_xyz) {
+				const y = fusion_level + xyz_rank * 2;
+				fire_condition.add(y);
 				const new_banished_fusion = [...banished_fusion, fusion_level];
 				const new_banished_xyz = [...banished_xyz, xyz_rank, xyz_rank];//banish two
 				const unique_new_banished_xyz = [...new Set(new_banished_xyz)];
-				const y = fusion_level + xyz_rank * 2;
 				for (const i of new_banished_fusion) {
 					for (const j of unique_new_banished_xyz) {
 						const x = i + j;
@@ -176,7 +182,7 @@ document.getElementById("clac_button").onclick = function () {
 				}
 			}
 		}
-		render_matrix(max_n, max_m, vis);
+		render_matrix(max_n, max_m, vis, fire_condition);
 		const msg = "计算成功";
 		alert(msg);
 	}
