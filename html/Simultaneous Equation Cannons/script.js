@@ -1,7 +1,38 @@
 const matrix = document.getElementById("matrix");
+const suggestion = document.getElementById("suggestion");
+const solution = document.getElementById("solution");
 
-function render_matrix(n, m, data/* shape=(n,m) */) {
+function clear_all() {
 	matrix.innerHTML = "";
+	suggestion.innerText = "";
+	solution.innerText = "";
+}
+function render_suggestion(init_monsters) {
+	const f=function(x){return x*(init_monsters-2*x);};
+	const best_fusion_number = init_monsters / 4;// f 的对称轴
+	let msg;
+	if (Number.isInteger(best_fusion_number)) {
+		const x0=best_fusion_number;
+		msg = `子弹数为${init_monsters}时,最优超量数量为${x0*2},最优融合数量为${init_monsters - 2 * x0},初始射程有${f(x0)}种情况`;
+	} else {
+		const x1 = Math.floor(best_fusion_number);
+		const x2 = Math.ceil(best_fusion_number);
+		const best1_value = f(x1);
+		const best2_value = f(x2);
+		if(best1_value===best2_value){
+			msg = `子弹数为${init_monsters}时,最优超量数量为${x1*2}/${x2*2},最优融合数量为${init_monsters - 2 * x1}/${init_monsters - 2 * x2},初始射程有${best1_value}种情况`;
+		}
+		else{
+			const x0=best1_value>best2_value?x1:x2;
+			msg = `子弹数为${init_monsters}时,最优超量数量为${x0*2},最优融合数量为${init_monsters - 2 * x0},初始射程有${f(x0)}种情况`;
+		}
+	}
+	suggestion.innerText = msg;
+}
+function render_solution(n) {
+	solution.innerText = `射程有${n}种情况`;
+}
+function render_matrix(n, m, data/* shape=(n,m) */) {
 
 	matrix.style.gridTemplateColumns = `80px repeat(${n},40px)`;
 
@@ -58,6 +89,7 @@ function render_matrix(n, m, data/* shape=(n,m) */) {
 		return d;
 	}
 
+	let counter=0;
 	// transpose and display
 	cornerHeader("N", "M");
 	for (j = 0; j < n; j++) {
@@ -69,6 +101,7 @@ function render_matrix(n, m, data/* shape=(n,m) */) {
 			const d = cell(j, i);
 			const data_i_j = data[j][i];
 			if (data_i_j.length > 0) {
+				counter+=1;
 				d.classList.add("hit");
 				d.innerText = data_i_j.length;
 				d.title = data_i_j.join("\n");
@@ -78,6 +111,7 @@ function render_matrix(n, m, data/* shape=(n,m) */) {
 			}
 		}
 	}
+	render_solution(counter);
 }
 function parse_list(id) {
 	return document.getElementById(id).value
@@ -90,12 +124,16 @@ function parse_int(id) {
 	return Number(document.getElementById(id).value.trim());
 }
 document.getElementById("clac_button").onclick = function () {
+	clear_all();
 	const init_monsters = parse_int("init_monsters");
 	if (Number.isNaN(init_monsters) || !(0 <= init_monsters && init_monsters <= 15)) {
 		const msg = "子弹数不是合法整数";
 		alert(msg);
 		throw new Error(msg);
 	}
+
+	render_suggestion(init_monsters);
+
 
 	const extra_fusion = parse_list("extra_fusion");
 	const extra_xyz = parse_list("extra_xyz");
@@ -109,8 +147,8 @@ document.getElementById("clac_button").onclick = function () {
 	}
 
 	if (extra_fusion.length > 0 && extra_xyz.length > 0) {
-		const extra_fusion_max_level = Math.max(Math.max(...extra_fusion), Math.max(...banished_fusion) ?? 0);
-		const extra_xyz_max_rank = Math.max(Math.max(...extra_xyz), Math.max(...banished_xyz) ?? 0);
+		const extra_fusion_max_level = Math.max(...extra_fusion, ...banished_fusion);
+		const extra_xyz_max_rank = Math.max(...extra_xyz, ...banished_xyz);
 
 		const max_n = extra_fusion_max_level + extra_xyz_max_rank;
 		const max_m = extra_fusion_max_level + extra_xyz_max_rank * 2;
