@@ -13,18 +13,18 @@ function render_suggestion(init_monsters) {
 	let msg;
 	if (Number.isInteger(best_fusion_number)) {
 		const x0 = best_fusion_number;
-		msg = `子弹数为${init_monsters}时,最优超量数量为${x0 * 2},最优融合数量为${init_monsters - 2 * x0},初始射程有${f(x0)}种情况`;
+		msg = `子弹数为${init_monsters}时,最优方案为(超量怪兽${x0 * 2}只,融合怪兽${init_monsters - 2 * x0}只),初始射程有${f(x0)}种情况`;
 	} else {
 		const x1 = Math.floor(best_fusion_number);
 		const x2 = Math.ceil(best_fusion_number);
 		const best1_value = f(x1);
 		const best2_value = f(x2);
 		if (best1_value === best2_value) {
-			msg = `子弹数为${init_monsters}时,最优超量数量为${x1 * 2}/${x2 * 2},最优融合数量为${init_monsters - 2 * x1}/${init_monsters - 2 * x2},初始射程有${best1_value}种情况`;
+			msg = `子弹数为${init_monsters}时,最优方案为(超量怪兽${x1 * 2}/${x2 * 2}只,融合怪兽${init_monsters - 2 * x1}/${init_monsters - 2 * x2}只),初始射程有${best1_value}种情况`;
 		}
 		else {
 			const x0 = best1_value > best2_value ? x1 : x2;
-			msg = `子弹数为${init_monsters}时,最优超量数量为${x0 * 2},最优融合数量为${init_monsters - 2 * x0},初始射程有${f(x0)}种情况`;
+			msg = `子弹数为${init_monsters}时,最优方案为(超量怪兽${x0 * 2}只,融合怪兽${init_monsters - 2 * x0}只),初始射程有${f(x0)}种情况`;
 		}
 	}
 	suggestion.innerText = msg;
@@ -117,15 +117,36 @@ function render_matrix(n, m, data/* shape=(n,m) */, fire_condition) {
 	}
 	render_solution(counter);
 }
-function parse_list(id) {
-	return document.getElementById(id).value
-		.split(",")
-		.map(x => x.trim())
-		.filter(x => x !== "")
-		.map(Number);
-}
 function parse_int(id) {
-	return Number(document.getElementById(id).value.trim());
+	const input = document.getElementById(id).value.trim();
+	if (input === "") {
+		return NaN;
+	}
+	else {
+		return Number(input);
+	}
+}
+function parse_fusion(prefix) {
+	const ret = [];
+	for (i = 0; i < 12; i++) {
+		const id = `${prefix}_fusion_${i + 1}`;
+		if (document.getElementById(id).checked) {
+			ret.push(i + 1);
+		}
+	}
+	return ret;
+}
+function parse_xyz(prefix) {
+	const ret = [];
+	for (i = 0; i < 13; i++) {
+		for (const j of ["", "2"]) {
+			const id = `${prefix}_xyz${j}_${i + 1}`;
+			if (document.getElementById(id).checked) {
+				ret.push(i + 1);
+			}
+		}
+	}
+	return ret;
 }
 document.getElementById("clac_button").onclick = function () {
 	clear_all();
@@ -138,57 +159,59 @@ document.getElementById("clac_button").onclick = function () {
 
 	render_suggestion(init_monsters);
 
-
-	const extra_fusion = parse_list("extra_fusion");
-	const extra_xyz = parse_list("extra_xyz");
-	const banished_fusion = parse_list("banished_fusion");
-	const banished_xyz = parse_list("banished_xyz");
+	const extra_fusion = parse_fusion("extra");
+	const extra_xyz = parse_xyz("extra");
+	const banished_fusion = parse_fusion("banished");
+	const banished_xyz = parse_xyz("banished");
 
 	if (extra_fusion.length + extra_xyz.length + banished_fusion.length + banished_xyz.length != init_monsters) {
 		const msg = `怪兽数量和预设的子弹数不一致(${extra_fusion.length}+${extra_xyz.length}+${banished_fusion.length}+${banished_xyz.length} ≠ ${init_monsters}),需要重新检查`;
 		alert(msg);
 		throw new Error(msg);
 	}
+	else {
 
-	if (extra_fusion.length > 0 && extra_xyz.length > 0) {
-		const extra_fusion_max_level = Math.max(...extra_fusion, ...banished_fusion);
-		const extra_xyz_max_rank = Math.max(...extra_xyz, ...banished_xyz);
+		if (extra_fusion.length > 0 && extra_xyz.length > 0) {
+			const extra_fusion_max_level = Math.max(...extra_fusion, ...banished_fusion);
+			const extra_xyz_max_rank = Math.max(...extra_xyz, ...banished_xyz);
 
-		const max_n = extra_fusion_max_level + extra_xyz_max_rank;
-		const max_m = extra_fusion_max_level + extra_xyz_max_rank * 2;
-		const vis = Array.from(
-			{ length: max_n },
-			() => Array.from(
-				{ length: max_m },
-				() => []
-			)
-		);
-		const fire_condition = new Set();
+			const max_n = extra_fusion_max_level + extra_xyz_max_rank;
+			const max_m = extra_fusion_max_level + extra_xyz_max_rank * 2;
+			const vis = Array.from(
+				{ length: max_n },
+				() => Array.from(
+					{ length: max_m },
+					() => []
+				)
+			);
+			const fire_condition = new Set();
 
-		const enumerate_extra_xyz = [...new Set(extra_xyz)].filter(x => extra_xyz.filter(y => y === x).length >= 2);
+			const enumerate_extra_xyz = [...new Set(extra_xyz)].filter(x => extra_xyz.filter(y => y === x).length >= 2);
 
-		for (const fusion_level of extra_fusion) {
-			for (const xyz_rank of enumerate_extra_xyz) {
-				const y = fusion_level + xyz_rank * 2;
-				fire_condition.add(y);
-				const new_banished_fusion = [...banished_fusion, fusion_level];
-				const new_banished_xyz = [...banished_xyz, xyz_rank, xyz_rank];//banish two
-				const unique_new_banished_xyz = [...new Set(new_banished_xyz)];
-				for (const i of new_banished_fusion) {
-					for (const j of unique_new_banished_xyz) {
-						const x = i + j;
-						vis[x - 1][y - 1].push(`banish ( L${fusion_level} + R${xyz_rank} * 2 ) and return ( L${i} + R${j} )`);
+			for (const fusion_level of extra_fusion) {
+				for (const xyz_rank of enumerate_extra_xyz) {
+					const y = fusion_level + xyz_rank * 2;
+					fire_condition.add(y);
+					const new_banished_fusion = [...banished_fusion, fusion_level];
+					const new_banished_xyz = [...banished_xyz, xyz_rank, xyz_rank];//banish two
+					const unique_new_banished_xyz = [...new Set(new_banished_xyz)];
+					for (const i of new_banished_fusion) {
+						for (const j of unique_new_banished_xyz) {
+							const x = i + j;
+							vis[x - 1][y - 1].push(`banish ( L${fusion_level} + R${xyz_rank} * 2 ) and return ( L${i} + R${j} )`);
+						}
 					}
 				}
 			}
+			render_matrix(max_n, max_m, vis, fire_condition);
 		}
-		render_matrix(max_n, max_m, vis, fire_condition);
-		const msg = "计算成功";
-		alert(msg);
+		else {
+			const msg = "子弹不符合条件,无法开炮";
+			alert(msg);
+			throw new Error(msg);
+		}
 	}
-	else {
-		const msg = "子弹不足开炮后不能除外";
-		alert(msg);
-		throw new Error(msg);
-	}
+};
+document.getElementById("clear_button").onclick = function () {
+	clear_all();
 };

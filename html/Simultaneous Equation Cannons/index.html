@@ -45,27 +45,198 @@
 
 	<h2>射程分析</h2>
 
-	<div> 初始子弹数： <input id="init_monsters" value="15" style="width:200px;" placeholder="[0,15]之间的整数"> </div>
+	<div> 初始子弹数：
+		<input id="init_monsters" style="width:200px;" placeholder="[0,15]之间的整数" type="number" required min="0"
+			max="15">
+	</div>
 
-	<div> 额外卡组的融合等级： <input id="extra_fusion" value="6,5,4,3,2,1" placeholder="逗号分隔的等级数,可以不排序"> </div>
+	<table class="level-grid">
+		<tr>
+			<th></th>
+			<th>1</th>
+			<th>2</th>
+			<th>3</th>
+			<th>4</th>
+			<th>5</th>
+			<th>6</th>
+			<th>7</th>
+			<th>8</th>
+			<th>9</th>
+			<th>10</th>
+			<th>11</th>
+			<th>12</th>
+		</tr>
 
-	<div> 额外卡组的超量阶级： <input id="extra_xyz" value="4,4,3,3,2,2" placeholder="逗号分隔的阶级数,可以不排序"> </div>
+		<tr>
+			<th class="fusion-outline">额外卡组 融合</th>
+			<td><input type="checkbox" id="extra_fusion_1"></td>
+			<td><input type="checkbox" id="extra_fusion_2"></td>
+			<td><input type="checkbox" id="extra_fusion_3"></td>
+			<td><input type="checkbox" id="extra_fusion_4"></td>
+			<td><input type="checkbox" id="extra_fusion_5"></td>
+			<td><input type="checkbox" id="extra_fusion_6"></td>
+			<td><input type="checkbox" id="extra_fusion_7"></td>
+			<td><input type="checkbox" id="extra_fusion_8"></td>
+			<td><input type="checkbox" id="extra_fusion_9"></td>
+			<td><input type="checkbox" id="extra_fusion_10"></td>
+			<td><input type="checkbox" id="extra_fusion_11"></td>
+			<td><input type="checkbox" id="extra_fusion_12"></td>
+		</tr>
+		<tr>
+			<th></th>
+			<th>1</th>
+			<th>2</th>
+			<th>3</th>
+			<th>4</th>
+			<th>5</th>
+			<th>6</th>
+			<th>7</th>
+			<th>8</th>
+			<th>9</th>
+			<th>10</th>
+			<th>11</th>
+			<th>12</th>
+		</tr>
+		<tr>
+			<th class="fusion-outline">除外状态 融合</th>
+			<td><input type="checkbox" id="banished_fusion_1"></td>
+			<td><input type="checkbox" id="banished_fusion_2"></td>
+			<td><input type="checkbox" id="banished_fusion_3"></td>
+			<td><input type="checkbox" id="banished_fusion_4"></td>
+			<td><input type="checkbox" id="banished_fusion_5"></td>
+			<td><input type="checkbox" id="banished_fusion_6"></td>
+			<td><input type="checkbox" id="banished_fusion_7"></td>
+			<td><input type="checkbox" id="banished_fusion_8"></td>
+			<td><input type="checkbox" id="banished_fusion_9"></td>
+			<td><input type="checkbox" id="banished_fusion_10"></td>
+			<td><input type="checkbox" id="banished_fusion_11"></td>
+			<td><input type="checkbox" id="banished_fusion_12"></td>
+		</tr>
 
-	<div> 除外状态的融合等级： <input id="banished_fusion" value="7" placeholder="逗号分隔的等级数,可以不排序"> </div>
+		<tr>
+			<th></th>
+			<th>1</th>
+			<th>2</th>
+			<th>3</th>
+			<th>4</th>
+			<th>5</th>
+			<th>6</th>
+			<th>7</th>
+			<th>8</th>
+			<th>9</th>
+			<th>10</th>
+			<th>11</th>
+			<th>12</th>
+			<th>13</th>
+		</tr>
 
-	<div> 除外状态的超量阶级： <input id="banished_xyz" value="5,5" placeholder="逗号分隔的阶级数,可以不排序"> </div>
+		<tr>
+			<th rowspan="2" class="xyz-outline">额外卡组 超量</th>
+			<td><input type="checkbox" id="extra_xyz_1"></td>
+			<td><input type="checkbox" id="extra_xyz_2"></td>
+			<td><input type="checkbox" id="extra_xyz_3"></td>
+			<td><input type="checkbox" id="extra_xyz_4"></td>
+			<td><input type="checkbox" id="extra_xyz_5"></td>
+			<td><input type="checkbox" id="extra_xyz_6"></td>
+			<td><input type="checkbox" id="extra_xyz_7"></td>
+			<td><input type="checkbox" id="extra_xyz_8"></td>
+			<td><input type="checkbox" id="extra_xyz_9"></td>
+			<td><input type="checkbox" id="extra_xyz_10"></td>
+			<td><input type="checkbox" id="extra_xyz_11"></td>
+			<td><input type="checkbox" id="extra_xyz_12"></td>
+			<td><input type="checkbox" id="extra_xyz_13"></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox" id="extra_xyz2_1"></td>
+			<td><input type="checkbox" id="extra_xyz2_2"></td>
+			<td><input type="checkbox" id="extra_xyz2_3"></td>
+			<td><input type="checkbox" id="extra_xyz2_4"></td>
+			<td><input type="checkbox" id="extra_xyz2_5"></td>
+			<td><input type="checkbox" id="extra_xyz2_6"></td>
+			<td><input type="checkbox" id="extra_xyz2_7"></td>
+			<td><input type="checkbox" id="extra_xyz2_8"></td>
+			<td><input type="checkbox" id="extra_xyz2_9"></td>
+			<td><input type="checkbox" id="extra_xyz2_10"></td>
+			<td><input type="checkbox" id="extra_xyz2_11"></td>
+			<td><input type="checkbox" id="extra_xyz2_12"></td>
+			<td><input type="checkbox" id="extra_xyz2_13"></td>
+		</tr>
+		<tr>
+			<th></th>
+			<th>1</th>
+			<th>2</th>
+			<th>3</th>
+			<th>4</th>
+			<th>5</th>
+			<th>6</th>
+			<th>7</th>
+			<th>8</th>
+			<th>9</th>
+			<th>10</th>
+			<th>11</th>
+			<th>12</th>
+			<th>13</th>
+		</tr>
 
-	<br>
+		<tr>
+			<th rowspan="2" class="xyz-outline">除外状态 超量</th>
+			<td><input type="checkbox" id="banished_xyz_1"></td>
+			<td><input type="checkbox" id="banished_xyz_2"></td>
+			<td><input type="checkbox" id="banished_xyz_3"></td>
+			<td><input type="checkbox" id="banished_xyz_4"></td>
+			<td><input type="checkbox" id="banished_xyz_5"></td>
+			<td><input type="checkbox" id="banished_xyz_6"></td>
+			<td><input type="checkbox" id="banished_xyz_7"></td>
+			<td><input type="checkbox" id="banished_xyz_8"></td>
+			<td><input type="checkbox" id="banished_xyz_9"></td>
+			<td><input type="checkbox" id="banished_xyz_10"></td>
+			<td><input type="checkbox" id="banished_xyz_11"></td>
+			<td><input type="checkbox" id="banished_xyz_12"></td>
+			<td><input type="checkbox" id="banished_xyz_13"></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox" id="banished_xyz2_1"></td>
+			<td><input type="checkbox" id="banished_xyz2_2"></td>
+			<td><input type="checkbox" id="banished_xyz2_3"></td>
+			<td><input type="checkbox" id="banished_xyz2_4"></td>
+			<td><input type="checkbox" id="banished_xyz2_5"></td>
+			<td><input type="checkbox" id="banished_xyz2_6"></td>
+			<td><input type="checkbox" id="banished_xyz2_7"></td>
+			<td><input type="checkbox" id="banished_xyz2_8"></td>
+			<td><input type="checkbox" id="banished_xyz2_9"></td>
+			<td><input type="checkbox" id="banished_xyz2_10"></td>
+			<td><input type="checkbox" id="banished_xyz2_11"></td>
+			<td><input type="checkbox" id="banished_xyz2_12"></td>
+			<td><input type="checkbox" id="banished_xyz2_13"></td>
+		</tr>
+		<tr>
+			<th></th>
+			<th>1</th>
+			<th>2</th>
+			<th>3</th>
+			<th>4</th>
+			<th>5</th>
+			<th>6</th>
+			<th>7</th>
+			<th>8</th>
+			<th>9</th>
+			<th>10</th>
+			<th>11</th>
+			<th>12</th>
+			<th>13</th>
+		</tr>
+	</table>
 
 	<button id="clac_button">计算</button>
+	<button id="clear_button">清空</button>
 
 	<p>N = 怪兽的等级·阶级</p>
 	<p>M = 双方的手卡·场上的卡数量</p>
 
-	<p id="suggestion" style="color:green;"></p>
+	<p id="suggestion"></p>
 	<br>
 
-	<p id="solution" style="color:white;"></p>
+	<p id="solution"></p>
 
 	<div id="matrix"></div>
 

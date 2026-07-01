@@ -1,5 +1,5 @@
 body {
-	background: #202020;
+	background: #008080;
 	color: white;
 	font-family: Consolas, "Microsoft YaHei", monospace;
 	margin: 30px;
@@ -109,4 +109,37 @@ button {
 
 input {
 	font-family: Consolas, "Courier New", monospace;
+}
+
+.level-grid {
+	border-collapse: collapse;
+	margin-top: 10px;
+}
+
+.level-grid th,
+.level-grid td {
+	padding: 4px;
+	text-align: center;
+}
+
+.level-grid th:first-child {
+	text-align: right;
+	white-space: nowrap;
+	padding-right: 10px;
+}
+
+.level-grid input[type="checkbox"] {
+	width: 18px;
+	height: 18px;
+	margin: 0;
+}
+
+.xyz-outline {
+	color: yellow;
+	-webkit-text-stroke: 1px black;
+}
+
+.fusion-outline {
+	color: orange;
+	-webkit-text-stroke: 1px purple;
 }
