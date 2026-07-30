@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="UTF-8">
+		<title>张昌蒲计算器</title>
+	</head>
+	<style>
+		#input, #output {
+			font-size: 25px;
+			height: 30px;
+			font-family: monospace;
+		}
+
+		button {
+			width: 80px;
+			height: 60px;
+			font-size: 18px;
+			font-family: monospace;
+			border: 1px solid black;
+		}
+
+		button:hover {
+			background-color: rgb(209, 209, 209);
+		}
+
+		button:active {
+			background-color: rgb(240, 240, 240);
+		}
+
+		#back {
+			background-color: rgb(252, 248, 227);
+		}
+
+		#back:hover {
+			background-color: rgb(232, 228, 207);
+		}
+
+		#back:active {
+			background-color: rgb(256, 252, 231);
+		}
+
+		#clear {
+			background-color: rgb(248, 215, 218);
+		}
+
+		#clear:hover {
+			background-color: rgb(228, 195, 198);
+		}
+
+		#clear:active {
+			background-color: rgb(252, 217, 222);
+		}
+
+		#calc {
+			background-color: rgb(223, 240, 216);
+		}
+
+		#calc:hover {
+			background-color: rgb(203, 220, 196);
+		}
+
+		#calc:active {
+			background-color: rgb(227, 244, 220);
+		}
+
+		#container > div {
+			padding: 5px;
+			text-align: center;
+		}
+	</style>
+	<body>
+		<div id="container">
+			<div id="input"></div>
+			<div>
+				<button onclick="inputNo(this.innerHTML)">10</button>
+				<button onclick="inputNo(11)">J</button>
+				<button onclick="inputNo(12)">Q</button>
+				<button onclick="inputNo(13)">K</button>
+			</div>
+			<div>
+				<button id="calc" onclick="calcResult()" title="回车">计算</button>
+				<button onclick="inputNo(this.innerHTML)">7</button>
+				<button onclick="inputNo(this.innerHTML)">8</button>
+				<button onclick="inputNo(this.innerHTML)">9</button>
+			</div>
+			<div>
+				<button id="back" onclick="backSpace()">退格</button>
+				<button onclick="inputNo(this.innerHTML)">4</button>
+				<button onclick="inputNo(this.innerHTML)">5</button>
+				<button onclick="inputNo(this.innerHTML)">6</button>
+			</div>
+			<div>
+				<button id="clear" onclick="clearInput()">清空</button>
+				<button onclick="inputNo(1)">A</button>
+				<button onclick="inputNo(this.innerHTML)">2</button>
+				<button onclick="inputNo(this.innerHTML)">3</button>
+			</div>
+			<div id="output"></div>
+		</div>
+		<a href="../index.html">back</a>
+	</body>
+</html>
+<script>
+var input;
+var output;
+window.onload = function () {
+	input = document.getElementById("input");
+	output = document.getElementById("output");
+};
+document.onkeydown = function (event) {
+	var key = event.key;
+	if (isNaN(key)) {
+		switch (key) {
+			case "j":
+			case "J":
+				inputNo(11);
+				break;
+			case "q":
+			case "Q":
+				inputNo(12);
+				break;
+			case "k":
+			case "K":
+				inputNo(13);
+				break;
+			case "a":
+			case "A":
+				inputNo(1);
+				break;
+			case "Backspace":
+				backSpace();
+				break;
+			case "Enter":
+				calcResult();
+				break;
+			case "Escape":
+			case "Esc":
+				clearInput();
+			default:
+				break;
+		}
+	} else {
+		if (key === "0") {
+			inputNo(10);
+		} else {
+			inputNo(key);
+		}
+	}
+};
+var touchtime=NaN;
+document.documentElement.addEventListener(
+	"touched",
+	(event)=>{
+		var t=Data.now();
+		if(t-touchtime<=300)
+			event.preventDefault();
+		touchtime=t;
+		return ;
+	},
+	{passive:false}
+);
+var inputArr = [];
+maxlen=10;
+minlen=4;
+function inputNo(text) {
+	if (inputArr.length >= 10) {
+		output.innerHTML = "<span style='color: red'>最多计算"+maxlen+"个数!</span>";
+		return;
+	}
+	inputArr.push(text - 0);
+	input.innerHTML = input.innerHTML + " " + transformLetter(text);
+	output.innerHTML = "";
+}
+function clearInput() {
+	inputArr = [];
+	input.innerHTML = "";
+	output.innerHTML = "";
+}
+function backSpace() {
+	inputArr.pop();
+	input.innerHTML = input.innerHTML.substring(0, input.innerHTML.lastIndexOf(" "));
+	output.innerHTML = "";
+}
+function subset(A,B){//a subset b?
+	let i=0,j=0;
+	while(i<A.length){
+		while(j<B.length&&B[j]<A[i])
+			j++;
+		if(j==B.length||B[j]>A[i])
+			return false;
+		i++;
+		j++;
+	}
+	return true;
+}
+var m;
+const maxnum=13;
+function genset(arr,buf,sum=0,st=0){
+	let i,j;
+	for(i=st;i<maxnum&&arr[i]==0;i++);
+	if(i==maxnum){
+		if(m.get(sum)==undefined)
+			m.set(sum,new Array());
+		//console.log(i,buf,sum,m.get(sum));
+		m.get(sum).push(buf.slice(0));
+		return ;
+	}
+	for(j=0;j<=arr[i];j++)
+		buf.push(i+1);
+	for(j=arr[i];j>=0;j--){
+		buf.pop();
+		genset(arr,buf,sum+(i+1)*(j),i+1);
+	}
+	return ;
+}
+function calcResult() {
+	document.getElementById("calc").focus();
+	if (inputArr.length < 4) {
+		output.innerHTML = "<span style='color: red'>最少计算"+minlen+"个数!</span>";
+		return;
+	}
+	let i,j,k,l,a,tmp;
+	var arr = new Array(maxnum),halfsum=0,ans=new Array(),buf=new Array();
+	m=new Map();
+	for(i=0;i<maxnum;i++)
+		arr[i]=0;
+	for(i=0;i<inputArr.length;i++){
+		arr[inputArr[i]-1]++;
+		halfsum+=inputArr[i];
+	}
+	halfsum=Math.floor(halfsum/2);
+	
+	genset(arr,[]);
+	for(i=halfsum;i>0;i--){
+		a=m.get(i);
+		if(a==undefined)
+			continue;
+		for(j=0;j<a.length;j++){
+			tmp1=arr.slice(0);
+			for(k=0;k<a[j].length;k++)
+				tmp1[a[j][k]-1]--;
+			for(k=j;k<a.length;k++){
+				tmp2=tmp1.slice(0);
+				for(l=0;l<a[k].length;l++)
+					if(--tmp2[a[k][l]-1]<0)
+						break;
+				if(l<a[k].length)
+					continue;
+				for(l=0;l<ans.length;l++){
+					[ansfirst,anssecond]=ans[l];
+					if(subset(a[j],ansfirst)&&subset(a[k],anssecond))
+						break;
+					if(subset(a[k],ansfirst)&&subset(a[j],anssecond))
+						break;
+				}
+				if(l<ans.length)
+					continue;
+				ans.push([a[j],a[k]]);
+			}
+		}
+	}
+	ans.sort(
+		(lhs,rhs)=>{//operator >
+			let i=-((lhs[0].length+lhs[1].length)-(rhs[0].length+rhs[1].length));
+			if(i) return i;
+			i=Math.abs(lhs[0].length-lhs[1].length)-Math.abs(rhs[0].length-rhs[1].length);
+			if(i) return i;
+			i=-(lhs[0].length-rhs[0].length);
+			if(i) return i;
+			for(i=0;i<lhs[0].length;i++)
+				if(lhs[0][i]!=rhs[0][i])
+					return (lhs[0][i]-rhs[0][i]);
+			for(i=0;i<lhs[1].length;i++)
+				if(lhs[1][i]!=rhs[1][i])
+					return (lhs[1][i]-rhs[1][i]);
+			return 0;
+		}
+	);
+	//console.log(ans);
+	
+	for(i=0;i<ans.length;i++){
+		tmp=[new Array(),new Array()];
+		for(j=0;j<2;j++)
+			for(k=0;k<ans[i][j].length;k++)
+				tmp[j].push(transformLetter(ans[i][j][k]));
+		buf.push(tmp[0].join(" + ")+" = "+tmp[1].join(" + "));
+	}
+	
+	output.innerHTML = buf.length==0?"<span style='color: red'>无结果!</span>":buf.join("<br>");
+}
+function transformLetter(num) {
+	switch (num) {
+		case 1:
+			return 'A';
+		case 11:
+			return 'J';
+		case 12:
+			return 'Q';
+		case 13:
+			return 'K';
+		default:
+			return num.toString();
+	}
+}
+</script>
