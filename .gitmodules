@@ -1,0 +1,3 @@
+[submodule "submodules/responsive-resume-cv-smith"]
+	path = submodules/responsive-resume-cv-smith
+	url = https://github.com/asdf0123/responsive-resume-cv-smith.git
