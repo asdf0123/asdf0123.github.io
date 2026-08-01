@@ -41,14 +41,10 @@ jobs:
 
       - name: check
         run: |
-          echo "=== Fluid package ==="
-          cat themes/Fluid/package.json
-
-          echo "=== Check fluid scripts ==="
-          grep -R "config.fluid" themes/Fluid -n || true
-
-          echo "=== Check generated title ==="
-          grep -R "Fluid" public/index.html | head
+          pwd
+          ls -ld themes/Fluid
+          cat _config.yml | grep theme
+          find themes/Fluid/scripts -type f | head -20
 
 
       - name: Generate Hexo site
