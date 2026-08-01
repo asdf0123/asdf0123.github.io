@@ -41,10 +41,8 @@ jobs:
 
       - name: check
         run: |
-          pwd
-          ls -ld themes/Fluid
-          cat _config.yml | grep theme
-          find themes/Fluid/scripts -type f | head -20
+          sed -n '1,200p' themes/Fluid/scripts/events/lib/merge-configs.js
+          echo "console.log('### FLUID LOADED ###')" > themes/Fluid/scripts/debug.js
 
 
       - name: Generate Hexo site
