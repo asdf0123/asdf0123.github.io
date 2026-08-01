@@ -11,10 +11,10 @@
 	这是自留地,方便我手机也能访问一些电脑上的资源.<br>
 	网页某些肉眼不可见的地方包含[NSFW]内容.不需要你认可,不需要你赞同,但是你留给我就可以了.<br>
 	因为不懂css,所以样式很丑.<br>
-	<h2>个人介绍</h2>
-	<a href="selfintreduction.html">个人介绍</a><br>
+	<!-- <h2>个人介绍</h2> -->
+	<!-- <a href="selfintroduction.html">个人介绍</a><br> -->
 	<h2>音乐</h2>
-	<audio id="mjmusic" controls="" src="./music/healtheworld.mp3" loop></audio><br>
+	<audio id="mjmusic" controls="" loop></audio><br>
 	<h2>电子书</h2>
 	<a href="EBook/拉萨尔幽灵的再现.txt">拉萨尔幽灵的再现</a><br>
 	<a href="EBook/Der Prozess.txt">审判</a><br>
@@ -35,7 +35,6 @@
 	<a href="html/crypto.html">密码学工具</a><br>
 	<a href="html/calculator.html">张昌蒲计算器</a><br>
 	<a href="html/Simultaneous Equation Cannons/index.html">`联栗炮固定式`构筑分析器</a><br>
-	<a href="html/3824.html">24点计算器</a><br>
 	<a href="html/countdown.html" target="_blank">倒计时</a><br>
 	<h2>书签</h2>
 	漫画<a href="https://www.smbc-comics.com" target="_blank">Saturday Morning Breakfast Cereal</a>|<a
@@ -144,14 +143,16 @@
 </html>
 <script type="text/javascript" language="javascript">
 	function randommusic() {
-		var lst = ["youarenotalone"//you are not alone
-			, "healtheworld"//heal the world
-			, "earthsong"//earth song
-			, "maninthemirror"//man in the mirror
-			, "wearetheworld"//we are the world
+		const lst = [
+			'Earth Song',
+			'Man in The Mirror',
+			'You Are Not Alone',
+			'Heal The World',
+			'We Are The World'
 		];
-		document.getElementById("mjmusic").src = "./music/" + lst[Math.floor(Math.random() * lst.length)] + ".mp3";
-		//console.log(document.getElementById("mjmusic").src);
+		const idx = Math.floor(Math.random() * lst.length);
+		const music_name = lst[idx];
+		document.getElementById("mjmusic").src = "./music/" + encodeURIComponent(music_name) + ".mp3";
 		return;
 	}
 	function ppap() {
