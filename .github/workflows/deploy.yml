@@ -41,11 +41,14 @@ jobs:
 
       - name: check
         run: |
-          ls -la themes/Fluid
-          head -20 themes/Fluid/_config.yml
-          node -v
-          npm -v
-          npx hexo version
+          echo "=== Files ==="
+          ls -la _config.fluid.yml themes/Fluid
+      
+          echo "=== Fluid override ==="
+          cat _config.fluid.yml
+      
+          echo "=== Hexo config about ==="
+          npx hexo config | grep -A10 about
 
 
       - name: Generate Hexo site
