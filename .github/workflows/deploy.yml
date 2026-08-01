@@ -41,16 +41,10 @@ jobs:
 
       - name: Generate Hexo site
         run: |
+          git submodule status
           npx hexo clean
           npx hexo config
           npx hexo generate
-      
-      - name: Debug Fluid config
-        run: |
-          pwd
-          ls -la
-          echo "=== source ==="
-          find source -maxdepth 2 -type f | sort
 
        # 下载最终静态文件
       - name: Download static release
