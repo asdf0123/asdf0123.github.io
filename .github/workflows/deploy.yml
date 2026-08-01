@@ -39,15 +39,28 @@ jobs:
             npm install
           fi
 
+      - name: check
+        run: |
+          echo "=== hexo data ==="
+
+          node - <<'EOF'
+          const Hexo = require('hexo');
+          const hexo = new Hexo(process.cwd());
+          
+          (async()=>{
+            await hexo.init();
+          
+            const data = hexo.locals.get('data');
+          
+            console.log(JSON.stringify(data.fluid_config,null,2));
+          
+            await hexo.exit();
+          })();
+          EOF
 
       - name: Generate Hexo site
         run: |
           npx hexo generate
-
-      - name: check
-        run: |
-          grep -R "_config.fluid" -n .
-          grep -R "theme_config" -n .
 
        # 下载最终静态文件
       - name: Download static release
