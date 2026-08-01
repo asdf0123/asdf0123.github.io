@@ -47,7 +47,7 @@ jobs:
       - name: check
         run: |
           grep -R "_config.fluid" -n .
-          grep -R "_config.fluid" -n .
+          grep -R "theme_config" -n .
 
        # 下载最终静态文件
       - name: Download static release
