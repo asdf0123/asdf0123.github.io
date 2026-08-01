@@ -44,10 +44,13 @@ jobs:
           sed -n '1,200p' themes/Fluid/scripts/events/lib/merge-configs.js
           echo "console.log('### FLUID LOADED ###')" > themes/Fluid/scripts/debug.js
 
-      - name: Patch Fluid
+      - name: Inject debug log into merge-configs
         run: |
-          perl -0pi -e 's/use strict.;/use strict.;\nconsole.log("EVENT INDEX LOADED");/s' \
-            themes/Fluid/scripts/events/index.js
+          sed -i '/module.exports = (hexo) => {/a\  console.log("ENTER merge-configs");' \
+            themes/Fluid/scripts/events/lib/merge-configs.js
+      
+          grep -A3 "module.exports" \
+            themes/Fluid/scripts/events/lib/merge-configs.js
 
       - name: Generate Hexo site
         run: |
