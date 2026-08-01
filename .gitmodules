@@ -1,6 +1,3 @@
 [submodule "submodules/responsive-resume-cv-smith"]
 	path = submodules/responsive-resume-cv-smith
 	url = https://github.com/asdf0123/responsive-resume-cv-smith.git
-[submodule "themes/Fluid"]
-	path = themes/Fluid
-	url = https://github.com/fluid-dev/hexo-theme-fluid.git
