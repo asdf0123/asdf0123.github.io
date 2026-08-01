@@ -41,14 +41,14 @@ jobs:
 
       - name: check
         run: |
-          echo "=== Files ==="
-          ls -la _config.fluid.yml themes/Fluid
-      
-          echo "=== Fluid override ==="
-          cat _config.fluid.yml
-      
-          echo "=== Hexo config about ==="
-          npx hexo config | grep -A10 about
+          echo "=== Fluid package ==="
+          cat themes/Fluid/package.json
+
+          echo "=== Check fluid scripts ==="
+          grep -R "config.fluid" themes/Fluid -n || true
+
+          echo "=== Check generated title ==="
+          grep -R "Fluid" public/index.html | head
 
 
       - name: Generate Hexo site
