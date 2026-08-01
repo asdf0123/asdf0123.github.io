@@ -44,18 +44,10 @@ jobs:
       
       - name: Debug Fluid config
         run: |
-          echo "=== Config ==="
-          grep -A10 "^about:" _config.fluid.yml
-      
-          echo "=== Theme ==="
-          grep theme _config.yml
-      
-          echo "=== Generate ==="
-          npx hexo generate
-      
-          echo "=== Result ==="
-          grep -r "zjlhhh123" public || true
-          grep -r "A Software Engineer" public || true
+          pwd
+          ls -la
+          echo "=== source ==="
+          find source -maxdepth 2 -type f | sort
 
        # 下载最终静态文件
       - name: Download static release
