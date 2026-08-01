@@ -40,7 +40,10 @@ jobs:
           fi
 
       - name: Generate Hexo site
-        run: npx hexo generate
+        run: |
+          npx hexo clean
+          npx hexo config
+          npx hexo generate
       
       - name: Debug Fluid config
         run: |
