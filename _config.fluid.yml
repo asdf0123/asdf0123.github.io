@@ -1,3 +1,8 @@
 dark_mode:
   enable: true
   default: dark
+
+favicon: /favicon.ico
+index:
+  slogan:
+    text: "zjlhhh123's note"

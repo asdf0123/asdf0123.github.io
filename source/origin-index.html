@@ -14,7 +14,7 @@
 	<h2>个人介绍</h2>
 	<a href="selfintreduction.html">个人介绍</a><br>
 	<h2>音乐</h2>
-	<audio id="mjmusic" controls="" src="./music/healtheworld.mp3" loop></audio><br>
+	<audio id="mjmusic" controls="" loop></audio><br>
 	<h2>电子书</h2>
 	<a href="EBook/拉萨尔幽灵的再现.txt">拉萨尔幽灵的再现</a><br>
 	<a href="EBook/Der Prozess.txt">审判</a><br>
@@ -143,14 +143,17 @@
 </html>
 <script type="text/javascript" language="javascript">
 	function randommusic() {
-		var lst = ["youarenotalone"//you are not alone
-			, "healtheworld"//heal the world
-			, "earthsong"//earth song
-			, "maninthemirror"//man in the mirror
-			, "wearetheworld"//we are the world
+		const lst = [
+			'Earth Song',
+			'Man in The Mirror',
+			'You Are Not Alone',
+			'Heal The World',
+			'We Are The World'
 		];
-		document.getElementById("mjmusic").src = "./music/" + lst[Math.floor(Math.random() * lst.length)] + ".mp3";
-		//console.log(document.getElementById("mjmusic").src);
+		const idx = Math.floor(Math.random() * lst.length);
+		console.log(idx);
+		const music_name = lst[idx];
+		document.getElementById("mjmusic").src = "./music/" + encodeURIComponent(music_name) + ".mp3";
 		return;
 	}
 	function ppap() {
