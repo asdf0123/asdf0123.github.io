@@ -39,22 +39,15 @@ jobs:
             npm install
           fi
 
-      - name: check
-        run: |
-          sed -n '1,200p' themes/Fluid/scripts/events/lib/merge-configs.js
-          echo "console.log('### FLUID LOADED ###')" > themes/Fluid/scripts/debug.js
-
-      - name: Inject debug log into merge-configs
-        run: |
-          sed -i '/module.exports = (hexo) => {/a\  console.log("ENTER merge-configs");' \
-            themes/Fluid/scripts/events/lib/merge-configs.js
-      
-          grep -A3 "module.exports" \
-            themes/Fluid/scripts/events/lib/merge-configs.js
 
       - name: Generate Hexo site
         run: |
           npx hexo generate
+
+      - name: check
+        run: |
+          grep -R "_config.fluid" -n .
+          grep -R "_config.fluid" -n .
 
        # 下载最终静态文件
       - name: Download static release
