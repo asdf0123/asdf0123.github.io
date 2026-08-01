@@ -39,11 +39,17 @@ jobs:
             npm install
           fi
 
+      - name: check
+        run: |
+          ls -la themes/Fluid
+          head -20 themes/Fluid/_config.yml
+          node -v
+          npm -v
+          npx hexo version
+
+
       - name: Generate Hexo site
         run: |
-          git submodule status
-          npx hexo clean
-          npx hexo config
           npx hexo generate
 
        # 下载最终静态文件
