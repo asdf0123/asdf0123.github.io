@@ -12,6 +12,8 @@
     "version": "8.1.2"
   },
   "dependencies": {
+    "fs-extra": "^11.4.0",
+    "handlebars": "^4.7.9",
     "hexo": "^8.0.0",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",

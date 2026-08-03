@@ -18,17 +18,16 @@ Jul 2023 – Present
 Intern: Jul 2023 – Nov 2024  
 Full-time: Nov 2024 – Present
 
-Developed high-performance trading infrastructure, including both order execution systems and market data distribution systems.
+Developed low-latency order execution and market data infrastructure serving proprietary quantitative trading systems.
 
 #### Trading Gateway Performance Optimization
  - Analyzed the gateway threading model and identified microsecond-level latency bottlenecks through detailed performance instrumentation.
  - Reverse-engineered a closed-source gateway to decode its SSL traffic and undocumented communication protocol.
  - Implemented a Rust-based SSL session key extraction tool to enable offline packet decryption and traffic analysis.
  - Improved median gateway latency from **13.428 μs** (with Solarflare Onload, comparable to the best commercially available implementation) to **12.338 μs**, achieving an approximately **8.1%** reduction through user-space execution-path optimization and dynamic library hooking, without modifying the original gateway binary.
- - Developed a Rust-based offline traffic analysis platform for continuous gateway latency measurement and performance regression detection.
+ - Built an end-to-end offline latency analysis platform from scratch, enabling continuous gateway performance monitoring through scheduled analysis and webhook notifications.
 
 #### End-to-End Market Data Gateway Link Analysis Platform
-
  - Architected and implemented an end-to-end gateway link analysis platform, covering data collection, aggregation, visualization, and real-time performance monitoring.
  - Designed a modular C++ packet-processing pipeline inspired by Java Netty, enabling flexible protocol-layer extensions while collecting metadata across the data-link, network, transport, and application layers.
  - Eliminated runtime polymorphism by leveraging C++20 Concepts and templates instead of virtual dispatch, reducing runtime overhead and improving type safety for latency-sensitive packet processing.
