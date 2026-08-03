@@ -6,9 +6,9 @@ on:
       - master
 
 permissions:
-  contents: write
-  # pages: write
-  # id-token: write
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
   group: pages
@@ -19,75 +19,53 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository (with submodules)
+      - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Download public from private 
+        uses: robinraju/release-downloader@v1
         with:
-          submodules: recursive
-          fetch-depth: 0
+          repository: asdf0123/asdf0123.github.io.private
+          latest: true
+          fileName: "public.zip" #只有一个子文件夹public的压缩包
+          out-file-path: ./
+          token: ${{ secrets.PRIVATE_REPO_QUREY_TOKEN }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Extract public
+        run: |
+          unzip -o ./public.zip -d ./
+          ls -la public
+
+       # 下载最终静态文件
+      - name: Download my music
+        uses: robinraju/release-downloader@v1
         with:
-          node-version: 20
-      
-      - name: Install dependencies
+          repository: asdf0123/MyMusic
+          latest: true
+          fileName: "MyMusic.zip"
+          out-file-path: ./
+          token: ${{ secrets.PRIVATE_REPO_QUREY_TOKEN }}
+
+      # 解压到 Hexo 输出目录
+      - name: Extract static files into public
         run: |
-          if [ -f package-lock.json ]; then
-            npm ci
-          else
-            npm install
-          fi
+          unzip -o ./MyMusic.zip -d ./public/music
 
-      - name: Generate Hexo site
-        run: |
-          npx hexo generate
-
-      #  # 下载最终静态文件
-      # - name: Download static release
-      #   uses: robinraju/release-downloader@v1
-      #   with:
-      #     repository: asdf0123/MyMusic
-      #     latest: true
-      #     fileName: "MyMusic.zip"
-      #     out-file-path: ./
-      #     token: ${{ secrets.PRIVATE_REPO_QUREY_TOKEN }}
-
-      # # 解压到 Hexo 输出目录
-      # - name: Extract static files into public
-      #   run: |
-      #     unzip -o ./MyMusic.zip -d ./public/music
-      #     echo "Public directory:"
-      #     ls -lah ./public/music
-
-      # - name: Upload Pages Artifact
-      #   uses: actions/upload-pages-artifact@v3
-      #   with:
-      #     path: ./public
-
-      - name: Pack Public
-        run: zip -r public.zip ./public
-
-      - name: Generate release tag
-        id: release_tag
-        run: |
-          echo "tag=$(date +'%Y%m%d-%H%M%S')" >> "$GITHUB_OUTPUT"
-
-      - name: Upload release
-        uses: softprops/action-gh-release@v2
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          tag_name: ${{ steps.release_tag.outputs.tag }}
-          files: public.zip
+          path: ./public
 
-  # deploy:
-  #   needs: build
+  deploy:
+    needs: build
 
-  #   runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-  #   environment:
-  #     name: github-pages
-  #     url: ${{ steps.deployment.outputs.page_url }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
-  #   steps:
-  #     - name: Deploy to GitHub Pages
-  #       id: deployment
-  #       uses: actions/deploy-pages@v4
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
