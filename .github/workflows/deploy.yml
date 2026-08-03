@@ -43,38 +43,52 @@ jobs:
         run: |
           npx hexo generate
 
-       # 下载最终静态文件
-      - name: Download static release
-        uses: robinraju/release-downloader@v1
-        with:
-          repository: asdf0123/MyMusic
-          latest: true
-          fileName: "MyMusic.zip"
-          out-file-path: ./
-          token: ${{ secrets.PRIVATE_REPO_QUREY_TOKEN }}
+      #  # 下载最终静态文件
+      # - name: Download static release
+      #   uses: robinraju/release-downloader@v1
+      #   with:
+      #     repository: asdf0123/MyMusic
+      #     latest: true
+      #     fileName: "MyMusic.zip"
+      #     out-file-path: ./
+      #     token: ${{ secrets.PRIVATE_REPO_QUREY_TOKEN }}
 
-      # 解压到 Hexo 输出目录
-      - name: Extract static files into public
+      # # 解压到 Hexo 输出目录
+      # - name: Extract static files into public
+      #   run: |
+      #     unzip -o ./MyMusic.zip -d ./public/music
+      #     echo "Public directory:"
+      #     ls -lah ./public/music
+
+      # - name: Upload Pages Artifact
+      #   uses: actions/upload-pages-artifact@v3
+      #   with:
+      #     path: ./public
+
+      - name: Pack Public
+        run: zip -r public.zip ./public
+
+      - name: Generate release tag
+        id: release_tag
         run: |
-          unzip -o ./MyMusic.zip -d ./public/music
-          echo "Public directory:"
-          ls -lah ./public/music
+          echo "tag=$(date +'%Y%m%d-%H%M%S')" >> "$GITHUB_OUTPUT"
 
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload release
+        uses: softprops/action-gh-release@v2
         with:
-          path: ./public
+          tag_name: ${{ steps.release_tag.outputs.tag }}
+          files: public.zip
 
-  deploy:
-    needs: build
+  # deploy:
+  #   needs: build
 
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
 
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+  #   steps:
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v4
