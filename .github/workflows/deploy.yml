@@ -4,12 +4,11 @@ on:
   push:
     branches:
       - master
-      - update_test
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
+  # pages: write
+  # id-token: write
 
 concurrency:
   group: pages
